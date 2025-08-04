@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, Text, StyleSheet, Alert } from 'react-native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../configs/firebaseConfig';
+import { useRoute } from '@react-navigation/native'; // ← 추가
 
 export default function LoginScreen({ navigation }) {
+  const route = useRoute(); // ← 추가
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // 전달받은 회원가입 정보 자동 채우기
+  useEffect(() => {
+    if (route.params?.email) setEmail(route.params.email);
+    if (route.params?.password) setPassword(route.params.password);
+  }, [route.params]);
 
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        navigation.replace('Main');  // 로그인 성공 시 MainScreen으로 이동 (replace로 뒤로가기 방지)
+        navigation.replace('Main'); // 로그인 성공 시 Main 화면으로
       })
       .catch(error => {
         Alert.alert('로그인 실패', error.message);
