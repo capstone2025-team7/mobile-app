@@ -41,7 +41,7 @@ export default function RegisterScreen({ navigation }) {
       });
 
       console.log("✅ Firestore 저장 성공 → 로그인 화면으로 이동");
-      navigation.navigate('Login', { email, password });  // ← 여기!
+      navigation.navigate('Login', { email, password });
     } catch (error) {
       console.error("Firestore 쓰기 에러:", error);
       Alert.alert('회원가입 실패', error.message);

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, Text, StyleSheet, Alert } from 'react-native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../configs/firebaseConfig';
-import { useRoute } from '@react-navigation/native'; // ← 추가
+import { useRoute } from '@react-navigation/native';
 
 export default function LoginScreen({ navigation }) {
-  const route = useRoute(); // ← 추가
+  const route = useRoute();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
