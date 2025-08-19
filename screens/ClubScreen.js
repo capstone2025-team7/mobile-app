@@ -1,60 +1,49 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import FooterNav from '../components/FooterNav';
+import BackNav from '../components/BackNav';
 import colors from '../styles/colors';
+import FooterNav from '../components/FooterNav';
 
 const { width } = Dimensions.get('window');
 const BUTTON_MARGIN = 16;
 const BUTTON_SIZE = (width - BUTTON_MARGIN * 3) / 2;
 
-const MainScreen = () => {
-  const navigation = useNavigation();
-
+const RegisterScreen = () => {
   return (
     <View style={styles.container}>
       <FooterNav />
       
       <View style={styles.buttonGrid}>
-        <TouchableOpacity 
-          style={styles.button} 
-          onPress={() => navigation.navigate('Club')}
-        >
-          <Text style={styles.buttonText}>동호회</Text>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>내 동호회</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.button} 
-          onPress={() => navigation.navigate('Notification')}
-        >
-          <Text style={styles.buttonText}>알림</Text>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>동호회 찾기</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.button} 
-          onPress={() => navigation.navigate('Feature')}
-        >
-          <Text style={styles.buttonText}>부가기능</Text>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>캘린더</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.button} 
-          onPress={() => navigation.navigate('Widget')}
-        >
-          <Text style={styles.buttonText}>위젯</Text>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>건의함</Text>
         </TouchableOpacity>
       </View>
+      <BackNav />
     </View>
   );
 };
 
-export default MainScreen;
+export default RegisterScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FAEBD7',
+    paddingBottom: 80,
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FAEBD7',
     justifyContent: 'space-between',
     paddingTop: 100,
     paddingBottom: 200,
@@ -64,7 +53,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     width: '90%',
-    marginTop: 20,
+    marginBottom: 20,
   },
   button: {
     width: BUTTON_SIZE,

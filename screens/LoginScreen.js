@@ -1,61 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, Alert } from 'react-native';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../configs/firebaseConfig';
-import { useRoute } from '@react-navigation/native';
+import React from 'react';
+import { View, TextInput, TouchableOpacity, Text, Image } from 'react-native';
+import { globalStyles } from '../styles/global';
+import { useNavigation } from '@react-navigation/native';
 
-export default function LoginScreen({ navigation }) {
-  const route = useRoute();
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  // 전달받은 회원가입 정보 자동 채우기
-  useEffect(() => {
-    if (route.params?.email) setEmail(route.params.email);
-    if (route.params?.password) setPassword(route.params.password);
-  }, [route.params]);
-
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigation.replace('Main'); // 로그인 성공 시 Main 화면으로
-      })
-      .catch(error => {
-        Alert.alert('로그인 실패', error.message);
-      });
-  };
+const LoginScreen = () => {
+  const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      <TextInput 
-        placeholder="이메일" 
-        value={email} 
-        onChangeText={setEmail} 
-        style={styles.input} 
-        keyboardType="email-address" 
-        autoCapitalize="none" 
+    <View style={globalStyles.screenContainer}>
+      <Image source={require('../assets/logo.png')} style={globalStyles.logo} />
+
+      <TextInput
+        placeholder="아이디를 입력해 주세요."
+        style={globalStyles.input}
+        placeholderTextColor="#aaa"
       />
-      <TextInput 
-        placeholder="비밀번호" 
-        value={password} 
-        onChangeText={setPassword} 
-        style={styles.input} 
-        secureTextEntry 
+
+      <TextInput
+        placeholder="비밀번호를 입력해 주세요."
+        style={globalStyles.input}
+        placeholderTextColor="#aaa"
+        secureTextEntry
       />
-      <Button title="로그인" onPress={handleLogin} />
-      <Text 
-        style={styles.link} 
+
+      <TouchableOpacity
+        style={globalStyles.button}
+        onPress={() => navigation.replace('Main')}
+      >
+        <Text style={globalStyles.buttonText}>로그인</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={globalStyles.button}
         onPress={() => navigation.navigate('Register')}
       >
-        회원가입 하러 가기
-      </Text>
+        <Text style={globalStyles.buttonText}>회원가입</Text>
+      </TouchableOpacity>
+
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: { flex:1, justifyContent:'center', padding:20 },
-  input: { borderWidth:1, borderColor:'#ccc', marginBottom:10, padding:10, borderRadius:5 },
-  link: { marginTop:15, color:'blue', textAlign:'center' }
-});
+export default LoginScreen;
