@@ -1,17 +1,40 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import FooterNav from '../components/FooterNav';
+import { View, Text, StyleSheet } from 'react-native';
 import BackNav from '../components/BackNav';
+import FooterNav from '../components/FooterNav';
+import colors from '../styles/colors';
 
-const RegisterScreen = () => {
+const FeatureScreen = () => {
   return (
-    <View style={{ flex: 1, paddingBottom: 80 }}>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ fontSize: 20 }}>부가기능 화면</Text>
+    <View style={styles.container}>
+      <FooterNav />
+
+      <View style={styles.content}>
+        <Text style={styles.title}>부가기능 화면</Text>
       </View>
       <BackNav />
     </View>
   );
 };
 
-export default RegisterScreen;
+export default FeatureScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FAEBD7',
+    justifyContent: 'space-between',
+    paddingTop: 100,
+    paddingBottom: 200,
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: colors.textDark,
+  },
+});

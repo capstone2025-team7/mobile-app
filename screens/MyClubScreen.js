@@ -7,77 +7,64 @@ import colors from '../styles/colors';
 
 const { width } = Dimensions.get('window');
 const BUTTON_MARGIN = 16;
-const BUTTON_SIZE = (width - BUTTON_MARGIN * 3) / 2;
+const BUTTON_WIDTH = width * 0.8;
+const BUTTON_HEIGHT = 120;
 
-const ClubScreen = () => {
+const MyClubScreen = () => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       <FooterNav />
-      
-      <View style={styles.buttonGrid}>
+
+      <View style={styles.buttonColumn}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('MyClub')}
+          onPress={() => navigation.navigate('AdmittedClub')}
         >
-          <Text style={styles.buttonText}>내 동호회</Text>
+          <Text style={styles.buttonText}>신청한 동호회 목록</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('SearchClub')}
+          onPress={() => navigation.navigate('JoinedClub')}
         >
-          <Text style={styles.buttonText}>동호회 찾기</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Calender')}
-        >
-          <Text style={styles.buttonText}>캘린더</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Suggestion')}
-        >
-          <Text style={styles.buttonText}>건의함</Text>
+          <Text style={styles.buttonText}>가입한 동호회 목록</Text>
         </TouchableOpacity>
       </View>
+
       <BackNav />
     </View>
   );
 };
 
-export default ClubScreen;
+export default MyClubScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingBottom: 80,
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FAEBD7',
     justifyContent: 'space-between',
+    backgroundColor: '#FAEBD7',
     paddingTop: 100,
     paddingBottom: 200,
   },
-  buttonGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    width: '90%',
-    marginBottom: 20,
+  buttonColumn: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
   },
   button: {
-    width: BUTTON_SIZE,
-    height: BUTTON_SIZE,
+    width: BUTTON_WIDTH,
+    height: BUTTON_HEIGHT,
     backgroundColor: colors.inputBg,
     borderRadius: 16,
     elevation: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: BUTTON_MARGIN,
+    marginVertical: BUTTON_MARGIN,
   },
   buttonText: {
     fontSize: 18,
