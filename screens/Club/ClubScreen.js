@@ -33,7 +33,7 @@ const ClubScreen = () => {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('Calender')}
+          onPress={() => navigation.navigate('Calendar')}
         >
           <Text style={styles.buttonText}>캘린더</Text>
         </TouchableOpacity>

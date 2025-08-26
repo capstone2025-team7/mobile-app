@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import OnboardingScreen from './components/OnboardingScreen';
-
 import LoginScreen from './screens/Login/LoginScreen';
 import RegisterScreen1 from './screens/Register/RegisterScreen1';
 import RegisterScreen2 from './screens/Register/RegisterScreen2';
@@ -22,11 +21,10 @@ import SearchClubScreen from './screens/Club/SearchClubScreen';
 import ClubInsideScreen from './screens/Club/ClubInsideScreen';
 import ClubOutsideScreen from './screens/Club/ClubOutsideScreen';
 import ClubInfoScreen from './screens/Club/ClubInfoScreen';
-import CalenderScreen from './screens/CalenderScreen';
+import CalendarScreen from './screens/CalendarScreen';
 import SuggestionScreen from './screens/Club/SuggestionScreen';
 import NotificationScreen from './screens/NotificationScreen';
 import FeatureScreen from './screens/FeatureScreen';
-import WidgetScreen from './screens/WidgetScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -53,11 +51,10 @@ export default function App() {
         <Stack.Screen name="ClubInfo" component={ClubInfoScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ClubMember" component={ClubMemberScreen} options={{ headerShown: false }} />
         <Stack.Screen name="BulletinBoard" component={BulletinBoardScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Calender" component={CalenderScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Suggestion" component={SuggestionScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Notifications" component={NotificationScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Features" component={FeatureScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Widget" component={WidgetScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
