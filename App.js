@@ -55,8 +55,8 @@ export default function App() {
         <Stack.Screen name="BulletinBoard" component={BulletinBoardScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Calender" component={CalenderScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Suggestion" component={SuggestionScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Notification" component={NotificationScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Feature" component={FeatureScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Notifications" component={NotificationScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Features" component={FeatureScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Widget" component={WidgetScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
