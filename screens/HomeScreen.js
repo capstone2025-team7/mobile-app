@@ -46,7 +46,10 @@ export default function HomeScreen({ navigation, route }) {
             <Image source={require('../assets/logo.png')} style={styles.logoImg} resizeMode="contain" />
             */}
             <Icon name="heart" size={18} color={colors.orange} style={{ marginRight: 6 }} />
-            <Text style={styles.logoText}><Text style={{ color: '#333' }}>DOB</Text><Text style={{ color: colors.orange }}>GO</Text></Text>
+            <Text style={styles.logoText}>
+              <Text style={{ color: '#333' }}>DOB</Text>
+              <Text style={{ color: colors.orange }}>GO</Text>
+            </Text>
           </View>
 
           <TouchableOpacity
@@ -94,7 +97,7 @@ export default function HomeScreen({ navigation, route }) {
           <FeatureCard
             icon="construct-outline"
             label="부가기능"
-            onPress={() => navigation.navigate('Extras')}
+            onPress={() => navigation.navigate('SubScreen')} // ✅ 수정된 부분
           />
           {/* 오늘 일정 카드(확장) */}
           <TouchableOpacity
@@ -126,7 +129,9 @@ export default function HomeScreen({ navigation, route }) {
             activeOpacity={0.9}
           >
             <Icon name="barbell-outline" size={18} color="#fff" />
-            <Text style={[g.mainButtonText, { marginLeft: 8 }]}>오늘의 운동 시작하기</Text>
+            <Text style={[g.mainButtonText, { marginLeft: 8 }]}>
+              오늘의 운동 시작하기
+            </Text>
           </TouchableOpacity>
         </View>
 

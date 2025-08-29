@@ -10,8 +10,14 @@ import SignupScreen2 from './screens/SignupScreen2';
 import SignupScreen3 from './screens/SignupScreen3';
 import SignupComplete from './screens/SignupComplete';
 
-// ✅ 홈 화면 추가
 import HomeScreen from './screens/HomeScreen';
+import SubScreen from './screens/SubScreen';
+
+import WalkScreen from './screens/WalkScreen';
+import MedicineScreen from './screens/MedicineScreen';
+import WalkRecordScreen from './screens/WalkRecordScreen';
+import WalkDetailScreen from './screens/WalkDetailScreen';
+import MedicineNewScreen from './screens/MedicineNewScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +25,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Onboarding" screenOptions={{ headerShown: false }}>
+        {/* 온보딩/가입/로그인 */}
         <Stack.Screen name="Onboarding" component={OnboardingScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
@@ -26,8 +33,17 @@ export default function App() {
         <Stack.Screen name="SignupScreen3" component={SignupScreen3} />
         <Stack.Screen name="SignupComplete" component={SignupComplete} />
 
-        {/* ✅ 홈 등록 */}
+        {/* 홈 & 서브 */}
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="SubScreen" component={SubScreen} />
+
+        {/* 부가기능 하위 */}
+        <Stack.Screen name="WalkScreen" component={WalkScreen} />
+        <Stack.Screen name="MedicineScreen" component={MedicineScreen} />
+        <Stack.Screen name="WalkRecord" component={WalkRecordScreen} />
+        <Stack.Screen name="WalkDetail" component={WalkDetailScreen} />
+        <Stack.Screen name="MedicineNew" component={MedicineNewScreen} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
