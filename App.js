@@ -17,6 +17,7 @@ import JoinedClubMainScreen from './screens/Club/JoinedClubMainScreen';
 import JoinedClubInfoScreen from './screens/Club/JoinedClubInfoScreen';
 import ClubMemberScreen from './screens/Club/ClubMemberScreen';
 import BulletinBoardScreen from './screens/Club/BulletinBoardScreen';
+import BulletinDetailScreen from './screens/Club/BulletinDetailScreen';
 import SearchClubScreen from './screens/Club/SearchClubScreen';
 import ClubInsideScreen from './screens/Club/ClubInsideScreen';
 import ClubOutsideScreen from './screens/Club/ClubOutsideScreen';
@@ -51,6 +52,7 @@ export default function App() {
         <Stack.Screen name="ClubInfo" component={ClubInfoScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ClubMember" component={ClubMemberScreen} options={{ headerShown: false }} />
         <Stack.Screen name="BulletinBoard" component={BulletinBoardScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="BulletinDetail" component={BulletinDetailScreen} options={{ headerShown: false}} />
         <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Suggestion" component={SuggestionScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Notifications" component={NotificationScreen} options={{ headerShown: false }} />

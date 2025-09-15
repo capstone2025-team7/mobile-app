@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import BackNav from '../../components/BackNav';
 import FooterNav from '../../components/FooterNav';
 import colors from '../../styles/colors';
@@ -11,7 +11,7 @@ const bulletins = [
     { id: 4, title: 'A월 A주차 일정 투표' },
 ];
 
-const BulletinBoardScreen = () => {
+const BulletinBoardScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <FooterNav />
@@ -20,9 +20,13 @@ const BulletinBoardScreen = () => {
                 <Text style={styles.title}>게시물</Text>
 
                 {bulletins.map((item) => (
-                    <View key={item.id} style={styles.bulletinCard}>
+                    <TouchableOpacity
+                        key={item.id}
+                        style={styles.bulletinCard}
+                        onPress={() => navigation.navigate('BulletinDetail', { id: item.id, title: item.title })}
+                    >
                         <Text style={styles.bulletinText}>{item.title}</Text>
-                    </View>
+                    </TouchableOpacity>
                 ))}
             </ScrollView>
 
