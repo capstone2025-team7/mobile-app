@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
     padding: 16,
     alignItems: 'center',
     marginBottom: 30,
+    minHeight: 450,
+    marginTop: 30,
   },
   clubImage: {
     width: 80,

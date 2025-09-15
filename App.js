@@ -56,8 +56,8 @@ export default function App() {
         <Stack.Screen name="BulletinDetail" component={BulletinDetailScreen} />
         <Stack.Screen name="Calendar" component={CalendarScreen} />
         <Stack.Screen name="Suggestion" component={SuggestionScreen} />
-        <Stack.Screen name="Notification" component={NotificationScreen} />
-        <Stack.Screen name="Feature" component={FeatureScreen} />
+        <Stack.Screen name="Notifications" component={NotificationScreen} />
+        <Stack.Screen name="Features" component={FeatureScreen} />
         <Stack.Screen name="Widget" component={WidgetScreen} />
       </Stack.Navigator>
     </NavigationContainer>

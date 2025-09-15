@@ -43,15 +43,13 @@ export default MyClubScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 80,
-    alignItems: 'center',
-    justifyContent: 'space-between',
     backgroundColor: '#FAEBD7',
+    alignItems: 'center',
     paddingTop: 100,
-    paddingBottom: 200,
+    paddingBottom: 100,
   },
   buttonColumn: {
-    flexDirection: 'column',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',

@@ -9,12 +9,16 @@ const BulletinDetailScreen = ({ route }) => {
   const { id, title } = route.params || {};
 
   // 예시 데이터 (실제로는 서버에서 불러오세요)
-  const [description] = useState('이번 주 동아리 회식 장소 투표입니다.');
+  const [description] = useState('이번 주 동아리 모임 요일 투표입니다.');
   const [endTime] = useState('2025-09-20T18:00:00'); // ISO 포맷 권장
   const [options, setOptions] = useState([
-    { id: 1, name: '치킨집', votes: 5 },
-    { id: 2, name: '삼겹살집', votes: 8 },
-    { id: 3, name: '파스타집', votes: 3 },
+    { id: 1, name: '월', votes: 0 },
+    { id: 2, name: '화', votes: 0 },
+    { id: 3, name: '수', votes: 0 },
+    { id: 4, name: '목', votes: 0 },
+    { id: 5, name: '금', votes: 0 },
+    { id: 6, name: '토', votes: 0 },
+    { id: 7, name: '일', votes: 0 },
   ]);
 
   const [userVoted, setUserVoted] = useState(false);

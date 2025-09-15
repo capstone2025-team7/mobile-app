@@ -49,10 +49,48 @@ const CalendarScreen = () => {
 export default CalendarScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', backgroundColor: '#FAEBD7', paddingTop: 100, paddingBottom: 80, justifyContent: 'space-between' },
-  calendar: { width: width * 0.9, borderRadius: 16, elevation: 2, backgroundColor: '#fff' },
-  buttonColumn: { flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: 20, paddingBottom: 20 },
-  selectedDateText: { fontSize: 20, fontWeight: '700', marginBottom: 10, color: colors.textDark },
-  button: { width: BUTTON_WIDTH, height: BUTTON_HEIGHT, backgroundColor: colors.inputBg, borderRadius: 16, elevation: 3, justifyContent: 'center', alignItems: 'center', marginVertical: 8 },
-  buttonText: { fontSize: 18, fontWeight: '600', color: colors.textDark },
+  container: { 
+    flex: 1, 
+    alignItems: 'center', 
+    backgroundColor: '#FAEBD7', 
+    paddingTop: 100, 
+    paddingBottom: 80, 
+    justifyContent: 'space-between' 
+  },
+  calendar: { 
+    width: width * 0.9, 
+    borderRadius: 16, 
+    elevation: 2, 
+    backgroundColor: '#fff' ,
+    marginTop: 30,
+  },
+  buttonColumn: { 
+    flexDirection: 'column', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    width: '100%', 
+    marginTop: 20, 
+    paddingBottom: 20 
+  },
+  selectedDateText: { 
+    fontSize: 20, 
+    fontWeight: '700', 
+    marginBottom: 10, 
+    color: colors.textDark 
+  },
+  button: { 
+    width: BUTTON_WIDTH, 
+    height: BUTTON_HEIGHT, 
+    backgroundColor: colors.inputBg, 
+    borderRadius: 16, 
+    elevation: 3, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    marginVertical: 8 
+  },
+  buttonText: { 
+    fontSize: 18, 
+    fontWeight: '600', 
+    color: colors.textDark 
+  },
 });
