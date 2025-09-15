@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
+=======
+import React from 'react';
+>>>>>>> origin/ui/club
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import FooterNav from '../components/FooterNav';
 import colors from '../styles/colors';
+<<<<<<< HEAD
 import { schedules } from '../components/schedules';
+=======
+>>>>>>> origin/ui/club
 
 const { width } = Dimensions.get('window');
 const BUTTON_MARGIN = 16;
@@ -11,6 +18,7 @@ const BUTTON_SIZE = (width - BUTTON_MARGIN * 3) / 2;
 
 const MainScreen = () => {
   const navigation = useNavigation();
+<<<<<<< HEAD
   const [today, setToday] = useState('');
   const [nextSchedule, setNextSchedule] = useState('없음');
 
@@ -36,10 +44,13 @@ const MainScreen = () => {
 
     setNextSchedule(upcomingSchedules[0] || '없음');
   }, []);
+=======
+>>>>>>> origin/ui/club
 
   return (
     <View style={styles.container}>
       <FooterNav />
+<<<<<<< HEAD
 
       <View style={styles.buttonGrid}>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Club')}>
@@ -62,6 +73,36 @@ const MainScreen = () => {
           <Text style={styles.buttonTextBelow}>오늘의 일정</Text>
 
           <Text style={styles.scheduleTextBelow}>{nextSchedule}</Text>
+=======
+      
+      <View style={styles.buttonGrid}>
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => navigation.navigate('Club')}
+        >
+          <Text style={styles.buttonText}>동호회</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => navigation.navigate('Notification')}
+        >
+          <Text style={styles.buttonText}>알림</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => navigation.navigate('Feature')}
+        >
+          <Text style={styles.buttonText}>부가기능</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => navigation.navigate('Widget')}
+        >
+          <Text style={styles.buttonText}>위젯</Text>
+>>>>>>> origin/ui/club
         </TouchableOpacity>
       </View>
     </View>
@@ -79,7 +120,10 @@ const styles = StyleSheet.create({
     paddingTop: 100,
     paddingBottom: 200,
   },
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/ui/club
   buttonGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -87,23 +131,34 @@ const styles = StyleSheet.create({
     width: '90%',
     marginTop: 20,
   },
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/ui/club
   button: {
     width: BUTTON_SIZE,
     height: BUTTON_SIZE,
     backgroundColor: colors.inputBg,
     borderRadius: 16,
     elevation: 3,
+<<<<<<< HEAD
     justifyContent: 'center', // 버튼 안에서 세로 중간
     alignItems: 'center',
     marginBottom: BUTTON_MARGIN,
     padding: 8,
   },
 
+=======
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: BUTTON_MARGIN,
+  },
+>>>>>>> origin/ui/club
   buttonText: {
     fontSize: 18,
     fontWeight: '600',
     color: colors.textDark,
+<<<<<<< HEAD
     marginBottom: 6,
   },
 
@@ -141,3 +196,7 @@ const styles = StyleSheet.create({
     color: colors.textDark,
   },
 });
+=======
+  },
+});
+>>>>>>> origin/ui/club
