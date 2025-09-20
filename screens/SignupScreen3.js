@@ -58,7 +58,7 @@ export default function SignupScreen3({ navigation, route }) {
         <TouchableOpacity
           disabled={!canNext}
           onPress={() =>
-            navigation.navigate('SignupComplete', {
+            navigation.navigate('SignupScreen4', {
               ...prev,
               days: selected,
             })

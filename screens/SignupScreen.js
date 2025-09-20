@@ -9,20 +9,21 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
+  Keyboard,
 } from 'react-native';
 import colors from '../styles/colors';
 import g from '../styles/global';
 
 export default function SignupScreen({ navigation }) {
   // 신규 추가: 아이디/비밀번호
-  const [accountId, setAccountId] = useState('');  // 아이디
-  const [password, setPassword] = useState('');    // 비밀번호
-  const [password2, setPassword2] = useState('');  // 비밀번호 확인
+  const [accountId, setAccountId] = useState('');
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
 
   // 기존 필드
   const [name, setName] = useState('');
-  const [birth, setBirth] = useState('');   // 표시용 (YYYY-MM-DD)
-  const [phone, setPhone] = useState('');   // 표시용 (010-1234-5678)
+  const [birth, setBirth] = useState('');
+  const [phone, setPhone] = useState('');
 
   // refs
   const idRef = useRef(null);
@@ -32,9 +33,8 @@ export default function SignupScreen({ navigation }) {
   const birthRef = useRef(null);
   const phoneRef = useRef(null);
 
-  // --- 입력 핸들러 (아이디/비번) ---
+  // --- 입력 핸들러 ---
   const onChangeId = (text) => {
-    // 영문/숫자/밑줄만 허용, 소문자 권장
     const cleaned = text.replace(/[^a-zA-Z0-9_]/g, '');
     setAccountId(cleaned);
   };
@@ -42,7 +42,6 @@ export default function SignupScreen({ navigation }) {
   const onChangePw = (text) => setPassword(text);
   const onChangePw2 = (text) => setPassword2(text);
 
-  // --- 입력 핸들러 (기존) ---
   const onChangeName = (text) => setName(text);
   const onEndEditingName = () => {
     const cleaned = name.replace(/[^\u3131-\u318E\uAC00-\uD7A3\s]/g, '').trim();
@@ -65,26 +64,32 @@ export default function SignupScreen({ navigation }) {
     setPhone(out);
   };
 
-  // --- 유효성 ---
+  // --- 유효성 검사 ---
   const birthDigits = birth.replace(/\D/g, '');
   const phoneDigits = phone.replace(/\D/g, '');
 
-  // 아이디: 5~20자, 영문으로 시작, 영문/숫자/밑줄 허용
   const isIdValid = useMemo(() => /^[a-zA-Z][a-zA-Z0-9_]{4,19}$/.test(accountId), [accountId]);
 
-  // 비밀번호: 8~20자, 영문/숫자 포함(특수문자 선택)
   const isPwValid = useMemo(
-    () =>
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\S]{8,20}$/.test(password),
+    () => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\S]{8,20}$/.test(password),
     [password]
   );
+
   const isPwSame = useMemo(() => password.length > 0 && password === password2, [password, password2]);
 
-  const isBirthValid = useMemo(() => birthDigits.length === 8, [birthDigits]);
-  const isPhoneValid = useMemo(
-    () => phoneDigits.length >= 10 && phoneDigits.length <= 11,
-    [phoneDigits]
-  );
+  const isBirthValid = useMemo(() => {
+    if (birthDigits.length !== 8) return false;
+    const birthYear = parseInt(birthDigits.slice(0, 4), 10);
+    const birthMonth = parseInt(birthDigits.slice(4, 6), 10) - 1;
+    const birthDay = parseInt(birthDigits.slice(6, 8), 10);
+    const birthDate = new Date(birthYear, birthMonth, birthDay);
+    if (isNaN(birthDate.getTime())) return false;
+    const cutoffDate = new Date(1965, 11, 31); // 1965-12-31
+    return birthDate <= cutoffDate;
+  }, [birthDigits]);
+
+  const isPhoneValid = useMemo(() => phoneDigits.length >= 10 && phoneDigits.length <= 11, [phoneDigits]);
+
   const isNameValid = useMemo(
     () => /^[\u3131-\u318E\uAC00-\uD7A3\s]+$/.test(name.trim()) && name.trim().length > 0,
     [name]
@@ -94,11 +99,9 @@ export default function SignupScreen({ navigation }) {
 
   const goNext = () => {
     if (!canNext) return;
-    // 다음 스텝으로 전달 (임시로 params 사용)
-    // 실제 제품에서는 Context/Store(예: Redux/Zustand)나 secure storage를 고려하세요.
     navigation.navigate('SignupScreen2', {
       accountId: accountId.trim(),
-      password, // ⚠️ 실제 서비스에서는 스크린 파라미터로 비밀번호 전달을 지양(보안 고려)
+      password,
       name: name.trim(),
       birth: birthDigits,
       phone: phoneDigits,
@@ -110,10 +113,65 @@ export default function SignupScreen({ navigation }) {
       style={[styles.container, g?.screen]}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      {/* 상단 로고 */}
       <Image source={require('../assets/logo.png')} style={styles.logo} />
 
       <View style={styles.form}>
+        {/* 이름 */}
+        <Text style={styles.label}>이름</Text>
+        <TextInput
+          ref={nameRef}
+          style={[styles.input, !isNameValid && name.length > 0 && styles.inputError]}
+          value={name}
+          onChangeText={onChangeName}
+          onEndEditing={onEndEditingName}
+          placeholder="이름을 입력하세요"
+          placeholderTextColor={colors?.muted || '#9aa0a6'}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="default"
+          returnKeyType="next"
+          onSubmitEditing={() => birthRef.current?.focus()}
+        />
+        {!isNameValid && name.length > 0 && (
+          <Text style={styles.error}>이름은 한글만 입력할 수 있습니다.</Text>
+        )}
+
+        {/* 생년월일 */}
+        <Text style={styles.label}>생년월일</Text>
+        <TextInput
+          ref={birthRef}
+          style={[styles.input, !isBirthValid && birthDigits.length > 0 && styles.inputError]}
+          value={birth}
+          onChangeText={onChangeBirth}
+          placeholder="예: 1950-01-23"
+          placeholderTextColor={colors?.muted || '#9aa0a6'}
+          keyboardType="number-pad"
+          maxLength={10}
+          returnKeyType="next"
+          onSubmitEditing={() => phoneRef.current?.focus()}
+        />
+        {!isBirthValid && birthDigits.length > 0 && (
+          <Text style={styles.error}>1965년 12월 31일 이전 출생자만 가입 가능합니다.</Text>
+        )}
+
+        {/* 전화번호 */}
+        <Text style={styles.label}>전화번호</Text>
+        <TextInput
+          ref={phoneRef}
+          style={[styles.input, !isPhoneValid && phoneDigits.length > 0 && styles.inputError]}
+          value={phone}
+          onChangeText={onChangePhone}
+          placeholder="예: 010-1234-5678"
+          placeholderTextColor={colors?.muted || '#9aa0a6'}
+          keyboardType="phone-pad"
+          maxLength={13}
+          returnKeyType="next"
+          onSubmitEditing={() => idRef.current?.focus()}
+        />
+        {!isPhoneValid && phoneDigits.length > 0 && (
+          <Text style={styles.error}>전화번호 10~11자리로 입력해 주세요.</Text>
+        )}
+
         {/* 아이디 */}
         <Text style={styles.label}>아이디</Text>
         <TextInput
@@ -162,70 +220,14 @@ export default function SignupScreen({ navigation }) {
           placeholderTextColor={colors?.muted || '#9aa0a6'}
           autoCapitalize="none"
           secureTextEntry
-          returnKeyType="next"
-          onSubmitEditing={() => nameRef.current?.focus()}
+          returnKeyType="done"
+          onSubmitEditing={() => Keyboard.dismiss()}
         />
         {password2.length > 0 && !isPwSame && (
           <Text style={styles.error}>비밀번호가 일치하지 않습니다.</Text>
         )}
-
-        {/* 이름 */}
-        <Text style={styles.label}>이름</Text>
-        <TextInput
-          ref={nameRef}
-          style={[styles.input, !isNameValid && name.length > 0 && styles.inputError]}
-          value={name}
-          onChangeText={onChangeName}
-          onEndEditing={onEndEditingName}
-          placeholder="이름을 입력하세요"
-          placeholderTextColor={colors?.muted || '#9aa0a6'}
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="default"
-          returnKeyType="next"
-          onSubmitEditing={() => birthRef.current?.focus()}
-        />
-        {!isNameValid && name.length > 0 && (
-          <Text style={styles.error}>이름은 한글만 입력할 수 있습니다.</Text>
-        )}
-
-        {/* 생년월일 */}
-        <Text style={styles.label}>생년월일</Text>
-        <TextInput
-          ref={birthRef}
-          style={[styles.input, !isBirthValid && birthDigits.length > 0 && styles.inputError]}
-          value={birth}
-          onChangeText={onChangeBirth}
-          placeholder="예: 1950-01-23"
-          placeholderTextColor={colors?.muted || '#9aa0a6'}
-          keyboardType="number-pad"
-          maxLength={10} // YYYY-MM-DD
-          returnKeyType="next"
-          onSubmitEditing={() => phoneRef.current?.focus()}
-        />
-        {!isBirthValid && birthDigits.length > 0 && (
-          <Text style={styles.error}>숫자 8자리(YYYYMMDD)로 입력해 주세요.</Text>
-        )}
-
-        {/* 전화번호 */}
-        <Text style={styles.label}>전화번호</Text>
-        <TextInput
-          ref={phoneRef}
-          style={[styles.input, !isPhoneValid && phoneDigits.length > 0 && styles.inputError]}
-          value={phone}
-          onChangeText={onChangePhone}
-          placeholder="예: 010-1234-5678"
-          placeholderTextColor={colors?.muted || '#9aa0a6'}
-          keyboardType="phone-pad"
-          maxLength={13} // 010-1234-5678
-          returnKeyType="done"
-        />
-        {!isPhoneValid && phoneDigits.length > 0 && (
-          <Text style={styles.error}>전화번호 10~11자리로 입력해 주세요.</Text>
-        )}
       </View>
 
-      {/* 하단 화살표 내비게이션 */}
       <View style={styles.footerNav}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -240,7 +242,11 @@ export default function SignupScreen({ navigation }) {
           onPress={goNext}
           style={[
             styles.navBtn,
-            { backgroundColor: canNext ? (colors?.primary || '#f48d48') : (colors?.border || '#dcdcdc') },
+            {
+              backgroundColor: canNext
+                ? colors?.primary || '#f48d48'
+                : colors?.border || '#dcdcdc',
+            },
           ]}
         >
           <Text style={[styles.navText, { color: '#fff' }]}>다음</Text>

@@ -8,6 +8,7 @@ import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import SignupScreen2 from './screens/SignupScreen2';
 import SignupScreen3 from './screens/SignupScreen3';
+import SignupScreen4 from './screens/SignupScreen4';
 import SignupComplete from './screens/SignupComplete';
 
 import HomeScreen from './screens/HomeScreen';
@@ -31,6 +32,7 @@ export default function App() {
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="SignupScreen2" component={SignupScreen2} />
         <Stack.Screen name="SignupScreen3" component={SignupScreen3} />
+        <Stack.Screen name="SignupScreen4" component={SignupScreen4} />
         <Stack.Screen name="SignupComplete" component={SignupComplete} />
 
         {/* 홈 & 서브 */}

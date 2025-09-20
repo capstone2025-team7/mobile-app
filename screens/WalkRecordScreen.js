@@ -1,4 +1,3 @@
-// screens/WalkRecordScreen.js
 import React, { useMemo } from 'react';
 import {
   SafeAreaView,
@@ -11,38 +10,37 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import colors from '../styles/colors';
 
-export default function WalkRecordScreen({ navigation, route }) {
-  // 데모 데이터 (실데이터로 교체 가능)
+export default function WalkRecordScreen({ navigation }) {
   const monthLabel = useMemo(() => '2025년 8월', []);
   const weekly = useMemo(() => ({
     totalKm: 13.1,
-    runCount: 4,
-    avgPace: "5'49\"",
-    totalTime: '1:16:26',
+    totalTime: '2:34:20',
   }), []);
 
-  // 단순 막대차트용 (일자/거리)
+  // 요일별 운동 시간 (단위: 분)
   const chartData = useMemo(() => ([
-    { day: 3,  km: 3.2 },
-    { day: 10, km: 0.0 },
-    { day: 12, km: 2.4 },
-    { day: 17, km: 0.8 },
-    { day: 24, km: 6.7 },
+    { day: '월', mins: 20 },
+    { day: '화', mins: 0 },
+    { day: '수', mins: 32 },
+    { day: '목', mins: 18 },
+    { day: '금', mins: 40 },
+    { day: '토', mins: 15 },
+    { day: '일', mins: 0 },
   ]), []);
 
-  // 최근 활동 리스트 (썸네일 없이)
+  // 최근 활동 (거리, 시간만 표시)
   const recent = useMemo(() => ([
-    { id: '1', title: '어제',   desc: '목요일 아침 러닝', km: 15.02, pace: "5'57\"", time: '1:29:24' },
-    { id: '2', title: '3일 전', desc: '저강도 러닝',     km: 3.20, pace: "6'02\"", time: '19:41' },
+    { id: '1', title: '2025.08.26', km: 3.2, time: '32:10' },
+    { id: '2', title: '2025.08.23', km: 2.1, time: '19:45' },
   ]), []);
 
   const ORANGE = colors?.primary || colors?.orange || '#FF7A00';
-  const IVORY  = colors?.ivory || colors?.background || '#F8F5E6';
+  const IVORY = colors?.ivory || colors?.background || '#F8F5E6';
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: IVORY }]}>
       <ScrollView contentContainerStyle={styles.container}>
-        {/* 상단 월 선택 라인 */}
+        {/* 월 선택 */}
         <View style={styles.monthRow}>
           <Text style={styles.monthText}>{monthLabel}</Text>
           <Icon name="chevron-down" size={18} color="#111" />
@@ -52,46 +50,46 @@ export default function WalkRecordScreen({ navigation, route }) {
         <View style={styles.summaryCard}>
           <View style={styles.kmRow}>
             <Text style={styles.kmBig}>{weekly.totalKm}</Text>
-            <View style={{ marginLeft: 6 }}>
-              <Text style={styles.kmUnit}>킬로미터</Text>
-            </View>
+            <Text style={styles.kmUnit}>킬로미터</Text>
           </View>
 
-          <View style={styles.metricsRow}>
-            <Metric label="러닝" value={weekly.runCount} />
-            <Divider />
-            <Metric label="평균 페이스" value={weekly.avgPace} />
-            <Divider />
-            <Metric label="시간" value={weekly.totalTime} />
+          <View style={styles.timeRow}>
+            <Text style={styles.metricLabel}>총 산책 시간</Text>
+            <Text style={styles.metricValue}>{weekly.totalTime}</Text>
           </View>
 
-          {/* 가벼운 막대 차트 (라이브러리 없이 View로) */}
-          <BarChart data={chartData} accent={ORANGE} />
+          <TimeBarChart data={chartData} accent={ORANGE} />
         </View>
 
         {/* 최근 활동 */}
         <Text style={styles.sectionTitle}>최근 활동</Text>
-        <View style={{ gap: 12 }}>
+        <View style={{ gap: 16 }}>
           {recent.map(item => (
             <Pressable
               key={item.id}
               style={styles.activityCard}
               android_ripple={{ color: 'rgba(0,0,0,0.06)' }}
-              // ✅ 상세 화면으로 이동 (activity 데이터를 함께 전달)
-              onPress={() => navigation.navigate('WalkDetail', { activity: item })}
+              onPress={() => {}}
             >
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.activityTitle}>{item.title}</Text>
-                  <Text style={styles.activityDesc}>{item.desc}</Text>
-                </View>
-                <Icon name="chevron-forward" size={18} color="#9CA3AF" />
-              </View>
+              {/* 날짜 */}
+              <Text style={styles.activityTitle}>
+                <Icon name="calendar-outline" size={18} color="#FF7A00" /> {'  '}
+                {item.title}
+              </Text>
 
+              {/* 거리 & 시간 */}
               <View style={styles.activityMetaRow}>
-                <MetaBlock label="Km" value={item.km} />
-                <MetaBlock label="평균 페이스" value={item.pace} />
-                <MetaBlock label="시간" value={item.time} />
+                <View style={styles.metaBlock}>
+                  <Icon name="walk-outline" size={20} color="#6B7280" />
+                  <Text style={styles.metaValue}> {item.km} km</Text>
+                  <Text style={styles.metaLabel}>거리</Text>
+                </View>
+
+                <View style={styles.metaBlock}>
+                  <Icon name="time-outline" size={20} color="#6B7280" />
+                  <Text style={styles.metaValue}> {item.time}</Text>
+                  <Text style={styles.metaLabel}>시간</Text>
+                </View>
               </View>
             </Pressable>
           ))}
@@ -103,45 +101,21 @@ export default function WalkRecordScreen({ navigation, route }) {
   );
 }
 
-/* ----- Sub Components ----- */
-function Metric({ label, value }) {
-  return (
-    <View style={{ alignItems: 'center' }}>
-      <Text style={styles.metricValue}>{String(value)}</Text>
-      <Text style={styles.metricLabel}>{label}</Text>
-    </View>
-  );
-}
-
-function Divider() {
-  return <View style={styles.metricDivider} />;
-}
-
-function MetaBlock({ label, value }) {
-  return (
-    <View style={{ alignItems: 'flex-start' }}>
-      <Text style={styles.metaValue}>{String(value)}</Text>
-      <Text style={styles.metaLabel}>{label}</Text>
-    </View>
-  );
-}
-
-function BarChart({ data, accent }) {
+function TimeBarChart({ data, accent }) {
   if (!data?.length) return null;
 
-  const maxKm = Math.max(...data.map(d => d.km), 1);
+  const maxMin = Math.max(...data.map(d => d.mins), 1);
   return (
     <View style={styles.chartWrap}>
       <View style={styles.chartAxis}>
-        {/* y축 간단 눈금 (0, 중간, 최대 근사) */}
         <Text style={styles.axisTick}>0</Text>
-        <Text style={styles.axisTick}>{(maxKm / 2).toFixed(1)}</Text>
-        <Text style={styles.axisTick}>{maxKm.toFixed(1)}km</Text>
+        <Text style={styles.axisTick}>{Math.ceil(maxMin / 2)}분</Text>
+        <Text style={styles.axisTick}>{maxMin}분</Text>
       </View>
 
       <View style={styles.chartBars}>
         {data.map((d, idx) => {
-          const h = Math.max((d.km / maxKm) * 100, 2); // 최소 표시 높이
+          const h = Math.max((d.mins / maxMin) * 100, 2);
           return (
             <View key={idx} style={styles.barCol}>
               <View style={[styles.bar, { height: `${h}%`, backgroundColor: accent }]} />
@@ -154,7 +128,6 @@ function BarChart({ data, accent }) {
   );
 }
 
-/* ----- Styles ----- */
 const styles = StyleSheet.create({
   safe: { flex: 1 },
   container: {
@@ -163,22 +136,19 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
 
-  /* 상단 월 선택 */
   monthRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'flex-start',
     gap: 6,
     marginBottom: 8,
     marginLeft: 4,
   },
-  monthText: { fontSize: 16, fontWeight: '700', color: '#111' },
+  monthText: { fontSize: 18, fontWeight: '700', color: '#111' },
 
-  /* 요약 카드 */
   summaryCard: {
     backgroundColor: '#fff',
     borderRadius: 18,
-    padding: 16,
+    padding: 18,
     shadowColor: '#000',
     shadowOpacity: 0.06,
     shadowRadius: 8,
@@ -188,29 +158,35 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0,0,0,0.04)',
     marginBottom: 16,
   },
-  kmRow: { flexDirection: 'row', alignItems: 'flex-end' },
-  kmBig: { fontSize: 56, fontWeight: '900', color: '#111', lineHeight: 60 },
-  kmUnit: { fontSize: 12, color: '#6B7280', marginBottom: 8 },
-
-  metricsRow: {
+  kmRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    marginBottom: 16,
+  },
+  kmBig: {
+    fontSize: 54,
+    fontWeight: '900',
+    color: '#111',
+    lineHeight: 60,
+    marginRight: 8,
+  },
+  kmUnit: {
+    fontSize: 16,
+    color: '#555',
+    marginBottom: 6,
+  },
+  timeRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 12,
-    marginBottom: 10,
+    alignItems: 'flex-end',
+    marginBottom: 20,
   },
-  metricValue: { fontSize: 16, fontWeight: '800', color: '#111' },
-  metricLabel: { fontSize: 12, color: '#6B7280', marginTop: 2 },
-  metricDivider: {
-    width: 1,
-    backgroundColor: 'rgba(0,0,0,0.08)',
-    marginHorizontal: 4,
-  },
+  metricLabel: { fontSize: 16, color: '#6B7280' },
+  metricValue: { fontSize: 20, fontWeight: '700', color: '#111' },
 
-  /* 간단 차트 */
   chartWrap: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    marginTop: 8,
     height: 140,
   },
   chartAxis: {
@@ -224,21 +200,28 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-end',
-    gap: 10,
-    paddingHorizontal: 6,
+    gap: 12,
+    paddingHorizontal: 8,
     paddingBottom: 2,
   },
-  barCol: { alignItems: 'center', justifyContent: 'flex-end', flex: 1 },
+  barCol: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    flex: 1,
+  },
   bar: {
     width: '60%',
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
   },
-  barLabel: { marginTop: 6, fontSize: 11, color: '#6B7280' },
+  barLabel: {
+    marginTop: 6,
+    fontSize: 12,
+    color: '#444',
+  },
 
-  /* 최근 활동 */
   sectionTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '800',
     color: '#111',
     marginBottom: 10,
@@ -247,17 +230,41 @@ const styles = StyleSheet.create({
   activityCard: {
     backgroundColor: '#fff',
     borderRadius: 16,
-    padding: 16,
+    padding: 20,
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.05)',
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 2,
+    gap: 12,
   },
-  activityTitle: { fontSize: 15, fontWeight: '800', color: '#111' },
-  activityDesc: { fontSize: 12, color: '#6B7280', marginTop: 4 },
+  activityTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#FF7A00',
+    marginBottom: 6,
+  },
   activityMetaRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 14,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: 4,
   },
-  metaValue: { fontSize: 16, fontWeight: '800', color: '#111' },
-  metaLabel: { fontSize: 11, color: '#6B7280', marginTop: 2 },
+  metaBlock: {
+    alignItems: 'center',
+    flex: 1,
+    gap: 2,
+  },
+  metaValue: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#111',
+    marginTop: 2,
+  },
+  metaLabel: {
+    fontSize: 13,
+    color: '#6B7280',
+  },
 });

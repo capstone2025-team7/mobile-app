@@ -17,8 +17,8 @@ export default function WalkDetailScreen({ route }) {
     '작은 걸음이 큰 변화를 만듭니다 🚶‍♂️',
     '당신의 노력이 빛나고 있어요 ✨',
     '꾸준함이 힘입니다! 파이팅 🙌',
-    '이 기세로 목표까지 달려가요 🏃‍♀️',
-    '넘 멋진 기록이에요! 계속 화이팅 🔥',
+    '이 기세로 목표까지 화이팅 🏃‍♀️',
+    '매일매일 꾸준히! 계속 화이팅 🔥',
   ];
   const randomMessage = useMemo(() => {
     const idx = Math.floor(Math.random() * messages.length);
