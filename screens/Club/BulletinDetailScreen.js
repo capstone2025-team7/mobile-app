@@ -6,11 +6,12 @@ import FooterNav from '../../components/FooterNav';
 import colors from '../../styles/colors';
 
 const BulletinDetailScreen = ({ route }) => {
-  const { id, title } = route.params || {};
+  const { id, title, startTime } = route.params || {};
 
-  // 예시 데이터 (실제로는 서버에서 불러오세요)
+  const [start] = useState(new Date(startTime));
+  const [endTime] = useState(new Date(start.getTime() + 6 * 24 * 60 * 60 * 1000));
+
   const [description] = useState('이번 주 동아리 모임 요일 투표입니다.');
-  const [endTime] = useState('2025-09-20T18:00:00'); // ISO 포맷 권장
   const [options, setOptions] = useState([
     { id: 1, name: '월', votes: 0 },
     { id: 2, name: '화', votes: 0 },
@@ -23,22 +24,22 @@ const BulletinDetailScreen = ({ route }) => {
 
   const [userVoted, setUserVoted] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
+  const [notStarted, setNotStarted] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
-      if (new Date(endTime) <= now) {
-        setIsEnded(true);
-      }
+      setNotStarted(now < start);
+      setIsEnded(now >= endTime);
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [endTime]);
+  }, [start, endTime]);
 
   const totalVotes = options.reduce((acc, o) => acc + o.votes, 0);
 
   const handleVote = (optionId) => {
-    if (userVoted || isEnded) return;
+    if (userVoted || isEnded || notStarted) return;
 
     setOptions((prev) =>
       prev.map((opt) => (opt.id === optionId ? { ...opt, votes: opt.votes + 1 } : opt))
@@ -54,7 +55,8 @@ const BulletinDetailScreen = ({ route }) => {
         <Text style={styles.title}>{title}</Text>
         <View style={styles.detailCard}>
           <Text style={styles.description}>{description}</Text>
-          <Text style={styles.endTime}>종료 시간: {new Date(endTime).toLocaleString()}</Text>
+          <Text style={styles.endTime}>투표 시작: {start.toLocaleString()}</Text>
+          <Text style={styles.endTime}>종료 시간: {endTime.toLocaleString()}</Text>
 
           <View style={styles.voteSection}>
             {options.map((option) => {
@@ -64,17 +66,18 @@ const BulletinDetailScreen = ({ route }) => {
                   <TouchableOpacity
                     style={[
                       styles.optionButton,
-                      (userVoted || isEnded) ? styles.optionButtonDisabled : null,
+                      (userVoted || isEnded || notStarted) ? styles.optionButtonDisabled : null,
                     ]}
                     onPress={() => handleVote(option.id)}
-                    disabled={userVoted || isEnded}
+                    disabled={userVoted || isEnded || notStarted}
                   >
                     <Text style={styles.optionText}>{option.name}</Text>
                   </TouchableOpacity>
 
-                  {/* 간단한 ProgressBar (외부 라이브러리 불필요) */}
                   <View style={styles.progressWrap}>
-                    <View style={[styles.progressInner, { width: `${Math.round(percentage * 100)}%` }]} />
+                    <View
+                      style={[styles.progressInner, { width: `${Math.round(percentage * 100)}%` }]}
+                    />
                   </View>
 
                   <Text style={styles.voteCount}>
@@ -84,6 +87,10 @@ const BulletinDetailScreen = ({ route }) => {
               );
             })}
           </View>
+
+          {notStarted && (
+            <Text style={styles.resultText}>투표가 아직 시작되지 않았습니다.</Text>
+          )}
 
           {isEnded && (
             <Text style={styles.resultText}>투표가 종료되었습니다. 최종 결과를 확인하세요!</Text>
@@ -139,7 +146,7 @@ const styles = StyleSheet.create({
   endTime: {
     fontSize: 14,
     color: 'gray',
-    marginBottom: 12,
+    marginBottom: 4,
   },
   voteSection: {
     marginTop: 8,

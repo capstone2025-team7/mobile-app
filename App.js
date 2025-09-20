@@ -18,9 +18,9 @@ import JoinedClubInfoScreen from './screens/Club/JoinedClubInfoScreen';
 import ClubMemberScreen from './screens/Club/ClubMemberScreen';
 import BulletinBoardScreen from './screens/Club/BulletinBoardScreen';
 import BulletinDetailScreen from './screens/Club/BulletinDetailScreen';
-import SearchClubScreen from './screens/Club/SearchClubScreen';
-import ClubInsideScreen from './screens/Club/ClubInsideScreen';
-import ClubOutsideScreen from './screens/Club/ClubOutsideScreen';
+import ActivitySelectScreen from './screens/Club/ClubSearch/ActivitySelectScreen';
+import DaySelectScreen from './screens/Club/ClubSearch/DaySelectScreen';
+import ClubListScreen from './screens/Club/ClubSearch/ClubListScreen';
 import ClubInfoScreen from './screens/Club/ClubInfoScreen';
 import CalendarScreen from './screens/CalendarScreen';
 import SuggestionScreen from './screens/Club/SuggestionScreen';
@@ -47,9 +47,9 @@ export default function App() {
         <Stack.Screen name="JoinedClub" component={JoinedClubScreen} />
         <Stack.Screen name="JoinedClubMain" component={JoinedClubMainScreen} />
         <Stack.Screen name="JoinedClubInfo" component={JoinedClubInfoScreen} />
-        <Stack.Screen name="SearchClub" component={SearchClubScreen} />
-        <Stack.Screen name="ClubInside" component={ClubInsideScreen} />
-        <Stack.Screen name="ClubOutside" component={ClubOutsideScreen} />
+        <Stack.Screen name="ActivitySelect" component={ActivitySelectScreen} />
+        <Stack.Screen name="DaySelect" component={DaySelectScreen} />
+        <Stack.Screen name="ClubList" component={ClubListScreen} />
         <Stack.Screen name="ClubInfo" component={ClubInfoScreen} />
         <Stack.Screen name="ClubMember" component={ClubMemberScreen} />
         <Stack.Screen name="BulletinBoard" component={BulletinBoardScreen} />

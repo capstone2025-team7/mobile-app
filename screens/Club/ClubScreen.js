@@ -26,7 +26,7 @@ const ClubScreen = () => {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('SearchClub')}
+          onPress={() => navigation.navigate('ActivitySelect')}
         >
           <Text style={styles.buttonText}>동호회 찾기</Text>
         </TouchableOpacity>
