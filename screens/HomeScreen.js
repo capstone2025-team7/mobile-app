@@ -1,23 +1,21 @@
-// screens/HomeScreen.js
 import React, { useMemo } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
-  Image,
   ScrollView,
   SafeAreaView,
   StatusBar,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'; // 설치: yarn add react-native-vector-icons
+import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import colors from '../styles/colors';
 import g from '../styles/global';
 
 export default function HomeScreen({ navigation, route }) {
   const userName = route?.params?.name ?? 'DOBGO 회원';
 
-  // 요일/날짜 포맷 (ko)
   const todayInfo = useMemo(() => {
     const now = new Date();
     const d = now.getDate();
@@ -25,7 +23,6 @@ export default function HomeScreen({ navigation, route }) {
     return { day: d, weekday };
   }, []);
 
-  // 데모용 일정 데이터 (실제 데이터 연동 시 교체)
   const todaySchedule = useMemo(
     () => ({
       title: '게이트볼',
@@ -39,26 +36,16 @@ export default function HomeScreen({ navigation, route }) {
     <SafeAreaView style={[styles.safe, { backgroundColor: colors.ivory }]}>
       <StatusBar barStyle="dark-content" />
       <ScrollView contentContainerStyle={styles.container}>
+        
         {/* 상단 앱바 */}
         <View style={styles.appBar}>
           <View style={styles.logoWrap}>
-            {/* 로고 이미지가 있을 경우 주석 해제하고 경로 수정
-            <Image source={require('../assets/logo.png')} style={styles.logoImg} resizeMode="contain" />
-            */}
             <Icon name="heart" size={18} color={colors.orange} style={{ marginRight: 6 }} />
             <Text style={styles.logoText}>
               <Text style={{ color: '#333' }}>DOB</Text>
               <Text style={{ color: colors.orange }}>GO</Text>
             </Text>
           </View>
-
-          <TouchableOpacity
-            style={styles.appBarBtn}
-            onPress={() => navigation.navigate('Notifications')}
-            accessibilityLabel="알림"
-          >
-            <Icon name="notifications-outline" size={22} color="#333" />
-          </TouchableOpacity>
         </View>
 
         {/* 환영 인사 */}
@@ -97,9 +84,8 @@ export default function HomeScreen({ navigation, route }) {
           <FeatureCard
             icon="construct-outline"
             label="부가기능"
-            onPress={() => navigation.navigate('SubScreen')} // ✅ 수정된 부분
+            onPress={() => navigation.navigate('SubScreen')}
           />
-          {/* 오늘 일정 카드(확장) */}
           <TouchableOpacity
             style={[styles.card, styles.scheduleCard]}
             activeOpacity={0.9}
@@ -121,7 +107,7 @@ export default function HomeScreen({ navigation, route }) {
           </TouchableOpacity>
         </View>
 
-        {/* 빠른 동작(CTA) */}
+        {/* 빠른 동작 */}
         <View style={{ marginTop: 16 }}>
           <TouchableOpacity
             style={[g.mainButton, styles.ctaBtn]}
@@ -135,7 +121,18 @@ export default function HomeScreen({ navigation, route }) {
           </TouchableOpacity>
         </View>
 
-        {/* 마진 */}
+        {/* ✅ 하단 마이페이지 버튼 */}
+        <View style={{ marginTop: 12 }}>
+          <TouchableOpacity
+            style={[g.mainButton, styles.mypageBtn]}
+            onPress={() => navigation.navigate('MyPage')}
+            activeOpacity={0.9}
+          >
+            <MaterialIcons name="person-outline" size={18} color="#fff" />
+            <Text style={[g.mainButtonText, { marginLeft: 8 }]}>마이페이지</Text>
+          </TouchableOpacity>
+        </View>
+
         <View style={{ height: 24 }} />
       </ScrollView>
     </SafeAreaView>
@@ -161,7 +158,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.ivory,
   },
 
-  /* AppBar */
   appBar: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -172,23 +168,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  logoImg: { width: 84, height: 24 },
   logoText: { fontSize: 22, fontWeight: '800', letterSpacing: 0.2 },
-  appBarBtn: {
-    width: 36,
-    height: 36,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-    backgroundColor: 'rgba(0,0,0,0.04)',
-  },
 
-  /* Greeting */
   greetWrap: { marginTop: 6, marginBottom: 14 },
   greetTitle: { fontSize: 20, fontWeight: '700', color: '#222' },
   greetSub: { fontSize: 14, color: '#6B7280', marginTop: 4 },
 
-  /* Banner */
   banner: {
     backgroundColor: '#fff',
     borderRadius: 18,
@@ -206,7 +191,6 @@ const styles = StyleSheet.create({
   bannerTitle: { fontSize: 15, fontWeight: '700' },
   bannerText: { marginTop: 8, fontSize: 13.5, color: '#4B5563', lineHeight: 19 },
 
-  /* Grid */
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -214,7 +198,6 @@ const styles = StyleSheet.create({
     rowGap: 14,
   },
 
-  /* Card */
   card: {
     width: '48%',
     backgroundColor: '#fff',
@@ -236,12 +219,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,149,0,0.12)', // 오렌지 라이트
+    backgroundColor: 'rgba(255,149,0,0.12)',
     marginBottom: 10,
   },
   cardText: { fontSize: 16, fontWeight: '700', color: '#111' },
 
-  /* Schedule card */
   scheduleCard: { paddingBottom: 16 },
   scheduleHeader: {
     width: '100%',
@@ -261,12 +243,21 @@ const styles = StyleSheet.create({
   scheduleTitle: { fontSize: 15, fontWeight: '700', color: '#111' },
   scheduleTime: { fontSize: 13, color: '#6B7280', marginTop: 4 },
 
-  /* CTA button */
   ctaBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 14,
     borderRadius: 14,
+  },
+
+  // ✅ 마이페이지 하단 버튼 스타일
+  mypageBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 14,
+    borderRadius: 14,
+    backgroundColor: colors.orange,
   },
 });

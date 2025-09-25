@@ -21,7 +21,7 @@ export default function MedicineNewScreen({ navigation, route }) {
     // TODO: 직접 입력 폼 화면으로 이동 (예: MedicineForm)
     // navigation.navigate('MedicineForm');
     Alert.alert('직접 등록', '약 이름/용량/복용시간을 직접 입력하는 화면으로 연결할 수 있어요.');
-  };
+  };  
 
   const onPressCamera = () => {
     Vibration?.vibrate?.(10);
