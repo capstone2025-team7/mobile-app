@@ -1,82 +1,38 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
-import { globalStyles } from '../styles/global';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const FooterNav = () => {
+const BackNav = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('Main')}>
-        <Image
-          source={require('../assets/logo.png')}
-          style={globalStyles.logo}
-          resizeMode="contain"
-        />
-      </TouchableOpacity>
-
-      <View style={styles.menuRow}>
-        <TouchableOpacity
-          style={[globalStyles.button, styles.menuButton]}
-          onPress={() => navigation.navigate('Club')}
-        >
-          <Text style={styles.menuText}>동호회</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[globalStyles.button, styles.menuButton]}
-          onPress={() => navigation.navigate('Features')}
-        >
-          <Text style={styles.menuText}>부가기능</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[globalStyles.button, styles.menuButton]}
-          onPress={() => navigation.navigate('Notifications')}
-        >
-          <Text style={styles.menuText}>알림</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    <TouchableOpacity
+      style={styles.backButton}
+      onPress={() => navigation.goBack()}
+    >
+      <Text style={styles.backText}>뒤로가기</Text>
+    </TouchableOpacity>
   );
 };
 
-export default FooterNav;
+export default BackNav;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#FAEBD7',
-    alignItems: 'center',
-  },
-  menuRow: {
-    flexDirection: 'row',
-    marginTop: 5,
-    width: '100%',
-    paddingHorizontal: 10,
-  },
-  menuButton: {
-    flex: 1,
-    marginHorizontal: 5,
-    paddingVertical: 10,
-    backgroundColor: '#F9B233',
-    borderRadius: 8,
-  },
-  menuText: {
-    fontSize: 16,
-    fontWeight: '600',
-    textAlign: 'center',
-    color: '#333',
-  },
   backButton: {
-    position: 'absolute',
+    position: 'absolute', // 화면 하단에 고정
     bottom: 20,
     left: 20,
     right: 20,
-    padding: 12,
     backgroundColor: '#F9B233',
+    paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
   backText: {
     color: '#fff',

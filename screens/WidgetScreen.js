@@ -1,23 +1,23 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import BackNav from '../components/BackNav';
-import FooterNav from '../components/FooterNav';
+import BackNav from '../components/FooterNav';
+import FooterNav from '../components/TopNav';
 import colors from '../styles/colors';
 
-const FeatureScreen = () => {
+const WidgetScreen = () => {
   return (
     <View style={styles.container}>
       <FooterNav />
 
       <View style={styles.content}>
-        <Text style={styles.title}>부가기능 화면</Text>
+        <Text style={styles.title}>위젯 화면</Text>
       </View>
       <BackNav />
     </View>
   );
 };
 
-export default FeatureScreen;
+export default WidgetScreen;
 
 const styles = StyleSheet.create({
   container: {

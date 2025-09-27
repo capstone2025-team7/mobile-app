@@ -4,10 +4,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import OnboardingScreen from './components/OnboardingScreen';
 import LoginScreen from './screens/Login/LoginScreen';
-import RegisterScreen1 from './screens/Register/RegisterScreen1';
-import RegisterScreen2 from './screens/Register/RegisterScreen2';
-import RegisterScreen3 from './screens/Register/RegisterScreen3';
-import RegisterScreen4 from './screens/Register/RegisterScreen4';
+import SignupScreen1 from './screens/Register/SignupScreen';
+import SignupScreen2 from './screens/Register/SignupScreen2';
+import SignupScreen3 from './screens/Register/SignupScreen3';
+import SignupScreen4 from './screens/Register/SignupScreen4';
+import SignupScreen5 from './screens/Register/SignupComplete';
 import MainScreen from './screens/MainScreen';
 import ClubScreen from './screens/Club/ClubScreen';
 import MyClubScreen from './screens/Club/MyClubScreen';
@@ -17,14 +18,19 @@ import JoinedClubMainScreen from './screens/Club/JoinedClubMainScreen';
 import JoinedClubInfoScreen from './screens/Club/JoinedClubInfoScreen';
 import ClubMemberScreen from './screens/Club/ClubMemberScreen';
 import BulletinBoardScreen from './screens/Club/BulletinBoardScreen';
-import SearchClubScreen from './screens/Club/SearchClubScreen';
-import ClubInsideScreen from './screens/Club/ClubInsideScreen';
-import ClubOutsideScreen from './screens/Club/ClubOutsideScreen';
 import ClubInfoScreen from './screens/Club/ClubInfoScreen';
 import CalendarScreen from './screens/CalendarScreen';
 import SuggestionScreen from './screens/Club/SuggestionScreen';
 import NotificationScreen from './screens/NotificationScreen';
-import FeatureScreen from './screens/FeatureScreen';
+import WidgetScreen from './screens/WidgetScreen';
+import MyPage from './screens/MyPage';
+import EditProfileScreen from './screens/EditProfileScreen';
+import FeatureScreen from './screens/Feature/FeatureScreen';
+import WalkScreen from './screens/Feature/WalkScreen';
+import WalkDetailScreen from './screens/Feature/WalkDetailScreen';
+import WalkRecordScreen from './screens/Feature/WalkRecordScreen';
+import MedicineScreen from './screens/Feature/MedicineScreen';
+import MedicineNewScreen from './screens/Feature/MedicineNewScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,29 +38,39 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Onboarding" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Register1" component={RegisterScreen1} options={{ headerShown: false }} />
-        <Stack.Screen name="Register2" component={RegisterScreen2} options={{ headerShown: false }} />
-        <Stack.Screen name="Register3" component={RegisterScreen3} options={{ headerShown: false }} />
-        <Stack.Screen name="Register4" component={RegisterScreen4} options={{ headerShown: false }} />
-        <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Club" component={ClubScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="MyClub" component={MyClubScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="AdmittedClub" component={AdmittedClubScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="JoinedClub" component={JoinedClubScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="JoinedClubMain" component={JoinedClubMainScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="JoinedClubInfo" component={JoinedClubInfoScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="SearchClub" component={SearchClubScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="ClubInside" component={ClubInsideScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="ClubOutside" component={ClubOutsideScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="ClubInfo" component={ClubInfoScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="ClubMember" component={ClubMemberScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="BulletinBoard" component={BulletinBoardScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Suggestion" component={SuggestionScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Notifications" component={NotificationScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Features" component={FeatureScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Signup1" component={SignupScreen1} />
+        <Stack.Screen name="Signup2" component={SignupScreen2} />
+        <Stack.Screen name="Signup3" component={SignupScreen3} />
+        <Stack.Screen name="Signup4" component={SignupScreen4} />
+        <Stack.Screen name="Signup5" component={SignupScreen5} />
+        <Stack.Screen name="Main" component={MainScreen} />
+        <Stack.Screen name="Club" component={ClubScreen} />
+        <Stack.Screen name="MyClub" component={MyClubScreen} />
+        <Stack.Screen name="AdmittedClub" component={AdmittedClubScreen} />
+        <Stack.Screen name="JoinedClub" component={JoinedClubScreen} />
+        <Stack.Screen name="JoinedClubMain" component={JoinedClubMainScreen} />
+        <Stack.Screen name="JoinedClubInfo" component={JoinedClubInfoScreen} />
+        <Stack.Screen name="ActivitySelect" component={ActivitySelectScreen} />
+        <Stack.Screen name="DaySelect" component={DaySelectScreen} />
+        <Stack.Screen name="ClubList" component={ClubListScreen} />
+        <Stack.Screen name="ClubInfo" component={ClubInfoScreen} />
+        <Stack.Screen name="ClubMember" component={ClubMemberScreen} />
+        <Stack.Screen name="BulletinBoard" component={BulletinBoardScreen} />
+        <Stack.Screen name="BulletinDetail" component={BulletinDetailScreen} />
+        <Stack.Screen name="Calendar" component={CalendarScreen} />
+        <Stack.Screen name="Suggestion" component={SuggestionScreen} />
+        <Stack.Screen name="Notifications" component={NotificationScreen} />
+        <Stack.Screen name="Features" component={FeatureScreen} />
+        <Stack.Screen name="Widget" component={WidgetScreen} />
+        <Stack.Screen name="MyPage" component={MyPage} />
+        <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+        <Stack.Screen name="Walk" component={WalkScreen} />
+        <Stack.Screen name="WalkDetail" component={WalkDetailScreen} />
+        <Stack.Screen name="WalkRecord" component={WalkRecordScreen} />
+        <Stack.Screen name="Medicine" component={MedicineScreen} />
+        <Stack.Screen name="NewMedicine" component={MedicineNewScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

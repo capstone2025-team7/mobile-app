@@ -16,9 +16,15 @@ export default function OnboardingScreen({ navigation }) {
         <Text style={styles.signupText}>네</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.loginText}>아니요</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonGroup}>
+        <TouchableOpacity style={styles.optionBtn} onPress={() => navigation.navigate('Signup1')}>
+          <Text style={styles.optionText}>네</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.optionBtn} onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.optionText}>아니요</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import FooterNav from '../../components/FooterNav';
-import BackNav from '../../components/BackNav';
+import FooterNav from '../../components/TopNav';
+import BackNav from '../../components/FooterNav';
 import colors from '../../styles/colors';
 
 const { width } = Dimensions.get('window');

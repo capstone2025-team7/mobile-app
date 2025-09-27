@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import BackNav from '../../components/BackNav';
-import FooterNav from '../../components/FooterNav';
+import BackNav from '../../components/FooterNav';
+import FooterNav from '../../components/TopNav';
 import colors from '../../styles/colors';
 
 const members = [

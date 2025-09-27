@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import FooterNav from '../../components/FooterNav';
-import BackNav from '../../components/BackNav';
+import FooterNav from '../../components/TopNav';
+import BackNav from '../../components/FooterNav';
 import colors from '../../styles/colors';
 
 const { width } = Dimensions.get('window');

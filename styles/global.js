@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import colors from './colors';
 
-export const globalStyles = StyleSheet.create({
+const g = StyleSheet.create({
   screenContainer: {
     flex: 1,
     backgroundColor: colors.background,
@@ -36,4 +36,22 @@ export const globalStyles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.textDark,
   },
+  mainButton: {
+    backgroundColor: '#FFB100',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  mainButtonText: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: '#FFFFFF',
+  },
 });
+
+export default g;
+
+export { g as globalStyles };
