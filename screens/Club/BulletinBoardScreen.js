@@ -1,34 +1,62 @@
+// src/screens/club/BulletinBoardScreen.js
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import BackNav from '../../components/FooterNav';
-import FooterNav from '../../components/TopNav';
 import colors from '../../styles/colors';
+import TopNav from '../../components/TopNav';
+import FooterNav from '../../components/FooterNav';
 
-const bulletins = [
-    { id: 1, title: 'A월 D주차 일정 투표' },
-    { id: 2, title: 'A월 C주차 일정 투표' },
-    { id: 3, title: 'A월 B주차 일정 투표' },
-    { id: 4, title: 'A월 A주차 일정 투표' },
-];
+const getWeeklyBulletins = () => {
+  const now = new Date();
+  const bulletins = [];
 
-const BulletinBoardScreen = () => {
-    return (
-        <View style={styles.container}>
-            <FooterNav />
+  for (let i = 0; i < 4; i++) { // 최근 4주치
+    const sunday = new Date(now);
+    // i주 전의 일요일 오전 10시
+    sunday.setDate(now.getDate() - ((now.getDay() + 7 * i) % 7));
+    sunday.setHours(10, 0, 0, 0);
 
-            <ScrollView contentContainerStyle={styles.content}>
-                <Text style={styles.title}>게시물</Text>
+    const month = sunday.getMonth() + 1;
+    const week = 4 - i; // 4주차부터 1주차 순
+    bulletins.push({
+      id: i + 1,
+      title: `${month}월 ${week}주차 일정 투표`,
+      startTime: sunday.toISOString(),
+    });
+  }
 
-                {bulletins.map((item) => (
-                    <View key={item.id} style={styles.bulletinCard}>
-                        <Text style={styles.bulletinText}>{item.title}</Text>
-                    </View>
-                ))}
-            </ScrollView>
+  return bulletins;
+};
 
-            <BackNav />
-        </View>
-    );
+const BulletinBoardScreen = ({ navigation }) => {
+  const bulletins = getWeeklyBulletins();
+
+  return (
+    <View style={styles.container}>
+      <TopNav />
+
+      <ScrollView contentContainerStyle={styles.content}>
+        <Text style={styles.title}>게시물</Text>
+
+        {bulletins.map((item) => (
+          <TouchableOpacity
+            key={item.id}
+            style={styles.bulletinCard}
+            onPress={() =>
+              navigation.navigate('BulletinDetail', {
+                id: item.id,
+                title: item.title,
+                startTime: item.startTime,
+              })
+            }
+          >
+            <Text style={styles.bulletinText}>{item.title}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+
+      <FooterNav />
+    </View>
+  );
 };
 
 export default BulletinBoardScreen;

@@ -1,9 +1,9 @@
 // src/screens/club/BulletinDetailScreen.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import BackNav from '../../components/FooterNav';
-import FooterNav from '../../components/TopNav';
 import colors from '../../styles/colors';
+import TopNav from '../../components/TopNav';
+import FooterNav from '../../components/FooterNav';
 
 const BulletinDetailScreen = ({ route }) => {
   const { id, title, startTime } = route.params || {};
@@ -49,7 +49,7 @@ const BulletinDetailScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <FooterNav />
+      <TopNav />
 
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>{title}</Text>
@@ -98,7 +98,7 @@ const BulletinDetailScreen = ({ route }) => {
         </View>
       </ScrollView>
 
-      <BackNav />
+      <FooterNav />
     </View>
   );
 };

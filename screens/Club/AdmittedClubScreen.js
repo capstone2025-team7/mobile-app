@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import FooterNav from '../../components/TopNav';
-import BackNav from '../../components/FooterNav';
 import colors from '../../styles/colors';
+import TopNav from '../../components/TopNav';
+import FooterNav from '../../components/FooterNav';
 
 const { width } = Dimensions.get('window');
 const BUTTON_MARGIN = 16;
@@ -22,7 +22,7 @@ const AdmittedClubScreen = () => {
 
   return (
     <View style={styles.container}>
-      <FooterNav />
+      <TopNav />
 
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
@@ -41,7 +41,7 @@ const AdmittedClubScreen = () => {
         ))}
       </ScrollView>
 
-      <BackNav />
+      <FooterNav />
     </View>
   );
 };

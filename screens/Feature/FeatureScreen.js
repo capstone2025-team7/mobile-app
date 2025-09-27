@@ -7,9 +7,9 @@ import {
   SafeAreaView,
   Vibration,
 } from 'react-native';
-import BackNav from '../../components/FooterNav';
-import FooterNav from '../../components/TopNav';
 import colors from '../../styles/colors';
+import TopNav from '../../components/TopNav';
+import FooterNav from '../../components/FooterNav';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -32,7 +32,7 @@ const FeatureScreen = ({ navigation }) => {
     <SafeAreaView style={[styles.safeArea, { backgroundColor: IVORY }]}>
       {/* 상단 FooterNav → 약간 아래로 */}
       <View style={styles.topNavWrapper}>
-        <FooterNav />
+        <TopNav />
       </View>
 
       <View style={styles.container}>
@@ -65,9 +65,8 @@ const FeatureScreen = ({ navigation }) => {
         </View>
       </View>
 
-      {/* 하단 BackNav → 위로 올림 */}
       <View style={styles.bottomNavWrapper}>
-        <BackNav />
+        <FooterNav />
       </View>
     </SafeAreaView>
   );

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import colors from '../../../styles/colors';
-import BackNav from '../../../components/FooterNav';
-import FooterNav from '../../../components/TopNav';
+import TopNav from '../../../components/TopNav';
+import FooterNav from '../../../components/FooterNav';
 
 const { width } = Dimensions.get('window');
 const BUTTON_MARGIN = 10;
@@ -36,7 +36,7 @@ const DaySelectScreen = () => {
 
   return (
     <View style={styles.container}>
-      <FooterNav />
+      <TopNav />
       <Text style={styles.title}>요일을 선택하세요</Text>
       <View style={styles.buttonColumn}>
         {days.map((day) => {
@@ -58,7 +58,7 @@ const DaySelectScreen = () => {
       <TouchableOpacity style={styles.findButton} onPress={findClubs}>
         <Text style={styles.findButtonText}>찾기</Text>
       </TouchableOpacity>
-      <BackNav />
+      <FooterNav />
     </View>
   );
 };

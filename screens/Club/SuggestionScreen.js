@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import FooterNav from '../../components/TopNav';
-import BackNav from '../../components/FooterNav';
 import colors from '../../styles/colors';
+import TopNav from '../../components/TopNav';
+import FooterNav from '../../components/FooterNav';
 
 const { width } = Dimensions.get('window');
 const BUTTON_MARGIN = 16;
@@ -12,8 +12,8 @@ const BUTTON_HEIGHT = 120;
 const SuggestionScreen = () => {
   return (
     <View style={styles.container}>
+      <TopNav />
       <FooterNav />
-      <BackNav />
     </View>
   );
 };

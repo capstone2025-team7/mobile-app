@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import colors from '../../../styles/colors';
-import FooterNav from '../../../components/TopNav';
-import BackNav from '../../../components/FooterNav';
+import TopNav from '../../../components/TopNav';
+import FooterNav from '../../../components/FooterNav';
 
 const { height } = Dimensions.get('window');
 
@@ -26,7 +26,7 @@ const ClubListScreen = () => {
 
   return (
     <View style={styles.container}>
-      <FooterNav />
+      <TopNav />
 
       <ScrollView
         contentContainerStyle={{ alignItems: 'center', paddingVertical: 20, paddingBottom: 100 }} // FooterNav 공간 확보
@@ -49,7 +49,7 @@ const ClubListScreen = () => {
           <Text style={styles.noClub}>조건에 맞는 동호회가 없습니다.</Text>
         )}
       </ScrollView>
-      <BackNav />
+      <FooterNav />
     </View>
   );
 };

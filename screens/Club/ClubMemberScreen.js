@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import BackNav from '../../components/FooterNav';
-import FooterNav from '../../components/TopNav';
 import colors from '../../styles/colors';
+import TopNav from '../../components/TopNav';
+import FooterNav from '../../components/FooterNav';
 
 const members = [
     { id: 1, name: '김모씨' },
@@ -14,7 +14,7 @@ const members = [
 const ClubMemberScreen = () => {
     return (
         <View style={styles.container}>
-            <FooterNav />
+            <TopNav />
 
             <ScrollView contentContainerStyle={styles.content}>
                 <Text style={styles.title}>멤버 목록</Text>
@@ -26,7 +26,7 @@ const ClubMemberScreen = () => {
                 ))}
             </ScrollView>
 
-            <BackNav />
+            <FooterNav />
         </View>
     );
 };

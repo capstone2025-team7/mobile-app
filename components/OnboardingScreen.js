@@ -5,16 +5,13 @@ import HelperWithSpeech from '../components/HelperWithSpeech';
 export default function OnboardingScreen({ navigation }) {
   return (
     <View style={styles.container}>
-
       <Image source={require('../assets/logo.png')} style={styles.topLogo} />
 
-      <View style={{ alignItems: 'center', marginTop: 10 }}>
+      <View style={{ alignItems: 'center', marginTop: 20 }}>
         <HelperWithSpeech size={160 * 2.5} />
       </View>
 
-      <TouchableOpacity style={styles.signupBtn} onPress={() => navigation.navigate('Register1')}>
-        <Text style={styles.signupText}>네</Text>
-      </TouchableOpacity>
+      <Text style={styles.title}>처음 이 앱을 사용하시나요?</Text>
 
       <View style={styles.buttonGroup}>
         <TouchableOpacity style={styles.optionBtn} onPress={() => navigation.navigate('Signup1')}>
@@ -43,10 +40,15 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginBottom: 8,
   },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 20,
+  },
   buttonGroup: {
     flexDirection: 'row',
     gap: 16,
-    marginTop: 20,
+    justifyContent: 'center',
     marginBottom: 28,
   },
   optionBtn: {
@@ -56,22 +58,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 2,
   },
-  optionText: { fontSize: 18, fontWeight: 'bold' },
-  signupBtn: {
-    backgroundColor: '#f48d48ff',
-    paddingVertical: 14,
-    width: '80%',
-    borderRadius: 10,
-    marginBottom: 12,
+  optionText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
-  signupText: { color: '#fff', textAlign: 'center', fontSize: 18, fontWeight: '600' },
-  loginBtn: {
-    backgroundColor: '#fff',
-    paddingVertical: 14,
-    width: '80%',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-  },
-  loginText: { textAlign: 'center', fontSize: 18, fontWeight: '600' },
 });

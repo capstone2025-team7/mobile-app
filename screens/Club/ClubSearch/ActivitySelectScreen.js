@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../../styles/colors';
-import FooterNav from '../../../components/TopNav';
-import BackNav from '../../../components/FooterNav';
+import TopNav from '../../../components/TopNav';
+import FooterNav from '../../../components/FooterNav';
 
 const { width } = Dimensions.get('window');
 const BUTTON_MARGIN = 16;
@@ -41,7 +41,7 @@ const ActivitySelectScreen = () => {
 
   return (
     <View style={styles.container}>
-      <FooterNav />
+      <TopNav />
 
       <Text style={styles.title}>활동을 선택하세요</Text>
 
@@ -70,7 +70,7 @@ const ActivitySelectScreen = () => {
         <Text style={styles.nextButtonText}>다음</Text>
       </TouchableOpacity>
 
-      <BackNav />
+      <FooterNav />
     </View>
   );
 };

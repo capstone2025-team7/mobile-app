@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import FooterNav from '../../components/TopNav';
-import BackNav from '../../components/FooterNav';
 import colors from '../../styles/colors';
+import TopNav from '../../components/TopNav';
+import FooterNav from '../../components/FooterNav';
 
 const { width } = Dimensions.get('window');
 const BUTTON_MARGIN = 16;
@@ -15,7 +15,7 @@ const MyClubScreen = () => {
 
   return (
     <View style={styles.container}>
-      <FooterNav />
+      <TopNav />
 
       <View style={styles.buttonColumn}>
         <TouchableOpacity
@@ -33,7 +33,7 @@ const MyClubScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <BackNav />
+      <FooterNav />
     </View>
   );
 };

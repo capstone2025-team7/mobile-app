@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import BackNav from '../../components/FooterNav';
-import FooterNav from '../../components/TopNav';
 import colors from '../../styles/colors';
+import TopNav from '../../components/TopNav';
+import FooterNav from '../../components/FooterNav';
 
 const ClubInfoScreen = ({ route }) => {
   const { club } = route.params;
@@ -18,7 +18,7 @@ const ClubInfoScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <FooterNav />
+      <TopNav />
 
       <View style={styles.content}>
         <View style={styles.card}>
@@ -43,7 +43,7 @@ const ClubInfoScreen = ({ route }) => {
         </View>
       </View>
 
-      <BackNav />
+      <FooterNav />
     </View>
   );
 };
@@ -71,6 +71,8 @@ const styles = StyleSheet.create({
     padding: 16,
     alignItems: 'center',
     marginBottom: 30,
+    minHeight: 450,
+    marginTop: 30,
   },
   clubImage: {
     width: 80,

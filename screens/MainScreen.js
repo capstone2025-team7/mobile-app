@@ -119,9 +119,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
-<<<<<<< Updated upstream
-  buttonGrid: {
-=======
   banner: {
     backgroundColor: '#ffff',
     borderRadius: 18,
@@ -141,55 +138,14 @@ const styles = StyleSheet.create({
   },
 
   grid: {
->>>>>>> Stashed changes
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     rowGap: 14,
   },
 
-<<<<<<< Updated upstream
-  button: {
-    width: BUTTON_SIZE,
-    height: BUTTON_SIZE,
-    backgroundColor: colors.inputBg,
-    borderRadius: 16,
-    elevation: 3,
-    justifyContent: 'center', // 버튼 안에서 세로 중간
-    alignItems: 'center',
-    marginBottom: BUTTON_MARGIN,
-    padding: 8,
-  },
-
-  buttonText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: colors.textDark,
-    marginBottom: 6,
-  },
-
-  buttonTextBelow: {
-    fontSize: 22, // 강조
-    fontWeight: '700',
-    color: colors.textDark,
-    marginBottom: 6,
-  },
-
-  scheduleTextBelow: {
-    fontSize: 14,
-    color: colors.textDark,
-    textAlign: 'center',
-    marginTop: 4,
-  },
-
-  dateBox: {
-    position: 'absolute',
-    top: 8,
-    left: 8,
-=======
   card: {
     width: '48%',
->>>>>>> Stashed changes
     backgroundColor: '#fff',
     borderRadius: 18,
     paddingVertical: 18,
@@ -203,13 +159,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.04)',
   },
-<<<<<<< Updated upstream
-
-  dateText: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: colors.textDark,
-=======
   cardIconWrap: {
     width: 40,
     height: 40,
@@ -256,6 +205,5 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 14,
     backgroundColor: '#FFB100',
->>>>>>> Stashed changes
   },
 });

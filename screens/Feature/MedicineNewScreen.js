@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import colors from '../../styles/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import TopNav from '../../components/TopNav';
+import FooterNav from '../../components/FooterNav';
 
 export default function MedicineNewScreen({ navigation, route }) {
   const ORANGE = colors?.primary || colors?.orange || '#FF7A00';
