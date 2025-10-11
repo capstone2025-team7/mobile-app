@@ -30,7 +30,7 @@ export default function MedicineScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: IVORY }]}>
+    <SafeAreaView style={[styles.safe, { backgroundColor: '#FAEBD7' }]}>
       <View style={styles.topNavWrapper}>
         <TopNav />
       </View>

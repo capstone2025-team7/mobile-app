@@ -16,7 +16,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const FeatureScreen = ({ navigation }) => {
   const ORANGE = colors?.primary || colors?.orange || '#FF7A00';
-  const IVORY = colors?.ivory || colors?.background || '#F8F5E6';
+  const IVORY = colors?.ivory || colors?.background || '#FAEBD7';
 
   const onPressWalk = () => {
     Vibration?.vibrate?.(10);
@@ -29,7 +29,7 @@ const FeatureScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={[styles.safeArea, { backgroundColor: IVORY }]}>
+    <SafeAreaView style={[styles.safeArea, { backgroundColor: '#FAEBD7' }]}>
       {/* 상단 FooterNav → 약간 아래로 */}
       <View style={styles.topNavWrapper}>
         <TopNav />

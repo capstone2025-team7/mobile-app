@@ -27,7 +27,7 @@ export default function WalkDetailScreen({ route }) {
 
   if (!activity) {
     return (
-      <SafeAreaView style={[styles.safe, { backgroundColor: IVORY }]}>
+      <SafeAreaView style={[styles.safe, { backgroundColor: '#FAEBD7' }]}>
         <View style={styles.container}>
           <Text style={styles.errorText}>활동 데이터가 없습니다.</Text>
         </View>

@@ -38,7 +38,7 @@ export default function WalkRecordScreen({ navigation }) {
   const IVORY = colors?.ivory || colors?.background || '#F8F5E6';
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: IVORY }]}>
+    <SafeAreaView style={[styles.safe, { backgroundColor: '#FAEBD7' }]}>
       <ScrollView contentContainerStyle={styles.container}>
         {/* 월 선택 */}
         <View style={styles.monthRow}>
