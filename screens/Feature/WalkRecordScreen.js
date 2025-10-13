@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import colors from '../../styles/colors';
+import TopNav from '../../components/TopNav';
+import FooterNav from '../../components/FooterNav';
 
 export default function WalkRecordScreen({ navigation }) {
   const monthLabel = useMemo(() => '2025년 8월', []);
@@ -40,6 +42,8 @@ export default function WalkRecordScreen({ navigation }) {
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: IVORY }]}>
       <ScrollView contentContainerStyle={styles.container}>
+        
+      <TopNav />
         {/* 월 선택 */}
         <View style={styles.monthRow}>
           <Text style={styles.monthText}>{monthLabel}</Text>
@@ -96,6 +100,7 @@ export default function WalkRecordScreen({ navigation }) {
         </View>
 
         <View style={{ height: 24 }} />
+      <FooterNav />
       </ScrollView>
     </SafeAreaView>
   );

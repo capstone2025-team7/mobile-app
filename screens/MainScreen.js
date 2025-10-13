@@ -4,8 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import colors from '../styles/colors';
 import g from '../styles/global';
-import FooterNav from '../components/TopNav';
-import BackNav from '../components/FooterNav';
+import TopNav from '../components/TopNav';
 
 export default function MainScreen({ navigation, route }) {
   const userName = route?.params?.name ?? 'DOBGO 회원';
@@ -31,7 +30,7 @@ export default function MainScreen({ navigation, route }) {
       <StatusBar barStyle="dark-content" />
       <View style={styles.container}>
         
-        <FooterNav />
+        <TopNav />
 
         <TouchableOpacity
           style={styles.banner}
@@ -93,7 +92,6 @@ export default function MainScreen({ navigation, route }) {
           </TouchableOpacity>
         </View>
 
-        <BackNav />
       </View>
     </SafeAreaView>
   );

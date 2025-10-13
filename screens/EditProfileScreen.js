@@ -39,18 +39,7 @@ export default function EditProfileScreen() {
             placeholder="이름을 입력하세요"
           />
         </View>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>아이디</Text>
-          <TextInput
-            style={styles.input}
-            value={userId}
-            onChangeText={setUserId}
-            placeholder="아이디를 입력하세요"
-            autoCapitalize="none"
-          />
-        </View>
-
+        
         <View style={styles.field}>
           <Text style={styles.label}>비밀번호</Text>
           <TextInput

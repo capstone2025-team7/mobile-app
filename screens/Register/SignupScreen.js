@@ -10,8 +10,8 @@ import {
   Platform,
   Keyboard,
 } from 'react-native';
-import colors from '../../styles/colors'
-import g from '../../styles/global'
+import colors from '../../styles/colors';
+import g from '../../styles/global';
 
 export default function SignupScreen({ navigation }) {
   // 신규 추가: 아이디/비밀번호
@@ -40,11 +40,12 @@ export default function SignupScreen({ navigation }) {
 
   const onChangePw = (text) => setPassword(text);
   const onChangePw2 = (text) => setPassword2(text);
-
   const onChangeName = (text) => setName(text);
+
   const onEndEditingName = () => {
-    const cleaned = name.replace(/[^\u3131-\u318E\uAC00-\uD7A3\s]/g, '').trim();
-    setName(cleaned);
+    // 한글 필터링 주석 처리
+    // const cleaned = name.replace(/[^\u3131-\u318E\uAC00-\uD7A3\s]/g, '').trim();
+    // setName(cleaned);
   };
 
   const onChangeBirth = (text) => {
@@ -90,7 +91,7 @@ export default function SignupScreen({ navigation }) {
   const isPhoneValid = useMemo(() => phoneDigits.length >= 10 && phoneDigits.length <= 11, [phoneDigits]);
 
   const isNameValid = useMemo(
-    () => /^[\u3131-\u318E\uAC00-\uD7A3\s]+$/.test(name.trim()) && name.trim().length > 0,
+    () => name.trim().length > 0, // 한글 제한 제거, 공백 제외 길이만 체크
     [name]
   );
 
@@ -131,9 +132,12 @@ export default function SignupScreen({ navigation }) {
           returnKeyType="next"
           onSubmitEditing={() => birthRef.current?.focus()}
         />
+        {/* 오류 메시지 주석 처리 */}
+        {/*
         {!isNameValid && name.length > 0 && (
           <Text style={styles.error}>이름은 한글만 입력할 수 있습니다.</Text>
         )}
+        */}
 
         {/* 생년월일 */}
         <Text style={styles.label}>생년월일</Text>

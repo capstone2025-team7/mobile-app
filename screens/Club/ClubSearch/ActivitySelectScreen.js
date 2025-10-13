@@ -9,14 +9,14 @@ const { width } = Dimensions.get('window');
 const BUTTON_MARGIN = 16;
 const BUTTON_SIZE = (width - BUTTON_MARGIN * 3) / 2; // 2개씩 가로, 양쪽 여백 포함
 
-const activities = ['골프장', '게이트볼', '테니스', '수영장'];
+const activities = ['골프', '게이트볼', '테니스', '수영'];
 
 // 활동별 이미지 매핑
 const activityImages = {
-  골프장: require('../../../assets/golf.png'),
+  골프: require('../../../assets/golf.png'),
   게이트볼: require('../../../assets/gateball.png'),
   테니스: require('../../../assets/tennis.png'),
-  수영장: require('../../../assets/swimming.png'),
+  수영: require('../../../assets/swimming.png'),
 };
 
 const ActivitySelectScreen = () => {
