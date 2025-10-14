@@ -29,7 +29,7 @@ export default function MedicineNewScreen({ navigation, route }) {
   };
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: IVORY }]}>
+    <SafeAreaView style={[styles.safe, { backgroundColor: '#FAEBD7' }]}>
       <View style={styles.container}>
         <View style={styles.grid}>
           {/* 상단 버튼: 직접 등록 */}

@@ -3,12 +3,12 @@ import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 import { globalStyles } from '../styles/global';
 import { useNavigation } from '@react-navigation/native';
 
-const FooterNav = () => {
+const TopNav = () => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('Main')}>
+      <TouchableOpacity onPress={() => navigation.replace('Main')}>
         <Image
           source={require('../assets/logo.png')}
           style={globalStyles.logo}
@@ -42,7 +42,7 @@ const FooterNav = () => {
   );
 };
 
-export default FooterNav;
+export default TopNav;
 
 const styles = StyleSheet.create({
   container: {

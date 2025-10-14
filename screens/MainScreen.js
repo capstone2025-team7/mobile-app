@@ -91,7 +91,6 @@ export default function MainScreen({ navigation, route }) {
             <Text style={[g.mainButtonText, { marginLeft: 8 }]}>마이페이지</Text>
           </TouchableOpacity>
         </View>
-
       </View>
     </SafeAreaView>
   );

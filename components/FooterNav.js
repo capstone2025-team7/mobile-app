@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const BackNav = () => {
+const FooterNav = () => {
   const navigation = useNavigation();
 
   return (
@@ -15,7 +15,7 @@ const BackNav = () => {
   );
 };
 
-export default BackNav;
+export default FooterNav;
 
 const styles = StyleSheet.create({
   backButton: {

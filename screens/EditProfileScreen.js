@@ -7,10 +7,13 @@ import {
   TouchableOpacity,
   Alert,
   ScrollView,
+  SafeAreaView,
+  StatusBar
 } from 'react-native';
+import TopNav from '../components/TopNav';
+import FooterNav from '../components/FooterNav';
 
 export default function EditProfileScreen() {
-  // 기본값 세팅 (예: 로그인된 유저 정보라고 가정)
   const [name, setName] = useState('홍길동');
   const [userId, setUserId] = useState('hong123');
   const [password, setPassword] = useState('12345678');
@@ -22,11 +25,10 @@ export default function EditProfileScreen() {
       '✅ 저장 완료',
       `이름: ${name}\n아이디: ${userId}\n비밀번호: ${password}\n거주지역: ${region}\n전화번호: ${phone}`
     );
-    // TODO: 서버 전송 or AsyncStorage 저장 등
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
+    <SafeAreaView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         <Text style={styles.title}>👤 프로필 수정 👤</Text>
 
@@ -76,18 +78,86 @@ export default function EditProfileScreen() {
           <Text style={styles.buttonText}> 저장하기 </Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+
+      {/* 스크롤 되는 영역 */ }
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.container}>
+          <Text style={styles.title}>👤 프로필 수정 👤</Text>
+
+          <View style={styles.field}>
+            <Text style={styles.label}>이름</Text>
+            <TextInput
+              style={styles.input}
+              value={name}
+              onChangeText={setName}
+              placeholder="이름을 입력하세요"
+            />
+          </View>
+
+          <View style={styles.field}>
+            <Text style={styles.label}>아이디</Text>
+            <TextInput
+              style={styles.input}
+              value={userId}
+              onChangeText={setUserId}
+              placeholder="아이디를 입력하세요"
+              autoCapitalize="none"
+            />
+          </View>
+
+          <View style={styles.field}>
+            <Text style={styles.label}>비밀번호</Text>
+            <TextInput
+              style={styles.input}
+              value={password}
+              onChangeText={setPassword}
+              placeholder="비밀번호를 입력하세요"
+              secureTextEntry
+            />
+          </View>
+
+          <View style={styles.field}>
+            <Text style={styles.label}>거주지역</Text>
+            <TextInput
+              style={styles.input}
+              value={region}
+              onChangeText={setRegion}
+              placeholder="거주지역을 입력하세요"
+            />
+          </View>
+
+          <View style={styles.field}>
+            <Text style={styles.label}>전화번호</Text>
+            <TextInput
+              style={styles.input}
+              value={phone}
+              onChangeText={setPhone}
+              placeholder="전화번호를 입력하세요"
+              keyboardType="phone-pad"
+            />
+          </View>
+
+          <TouchableOpacity style={styles.button} onPress={handleSave}>
+            <Text style={styles.buttonText}> 저장하기 </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+
+      <FooterNav />
+    </SafeAreaView >
   );
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    backgroundColor: '#FAEBD7',
+  },
   scrollContainer: {
-    flexGrow: 1,
-    backgroundColor: '#FFF4E0',
+    paddingBottom: 40,
   },
   container: {
     padding: 24,
-    paddingBottom: 40,
   },
   title: {
     fontSize: 28,
@@ -125,6 +195,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
+    marginBottom: 40,
   },
   buttonText: {
     fontSize: 30,

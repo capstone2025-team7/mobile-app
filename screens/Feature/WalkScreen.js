@@ -28,7 +28,7 @@ export default function WalkScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: IVORY }]}>
+    <SafeAreaView style={[styles.safe, { backgroundColor: '#FAEBD7' }]}>
       {/* 상단 TopNav */}
       <View style={styles.topNavWrapper}>
         <TopNav />
