@@ -43,15 +43,13 @@ export default MyClubScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 80,
-    alignItems: 'center',
-    justifyContent: 'space-between',
     backgroundColor: '#FAEBD7',
-    paddingTop: 100,
-    paddingBottom: 200,
+    paddingTop: 100,   // TopNav 피하기
+    paddingBottom: 100, // FooterNav 피하기
+    alignItems: 'center',
   },
   buttonColumn: {
-    flexDirection: 'column',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',

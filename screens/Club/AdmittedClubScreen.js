@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../styles/colors';
 import TopNav from '../../components/TopNav';
@@ -15,19 +15,25 @@ const clubs = [
   { id: '1', name: '농구 동아리', description: '주 2회 체육관에서 활동' },
   { id: '2', name: '독서 모임', description: '매주 토요일 책 토론' },
   { id: '3', name: '개발 스터디', description: 'React Native 프로젝트 진행' },
+  { id: '4', name: '음악 밴드', description: '악기 연주와 공연 준비' },
+  { id: '5', name: '헬스 동호회', description: '매일 같이 운동' },
+  { id: '6', name: '축구 동호회', description: '주 3회 경기' },
+  { id: '7', name: '사진 동호회', description: '주말 촬영 모임' },
+  { id: '8', name: '요리 모임', description: '매주 새로운 레시피 도전' },
 ];
 
-const AdmittedClubScreen = () => {
+export default function JoinedClubScreen() {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.safe}>
+      {/* 상단 고정 네비게이션 */}
       <TopNav />
 
+      {/* 스크롤 가능한 콘텐츠 */}
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={true} // 세로 스크롤바 표시
-        indicatorStyle="black"             // iOS에서 스크롤바 색상 설정
+        showsVerticalScrollIndicator
       >
         {clubs.map((club) => (
           <TouchableOpacity
@@ -41,24 +47,21 @@ const AdmittedClubScreen = () => {
         ))}
       </ScrollView>
 
+      {/* 하단 고정 네비게이션 */}
       <FooterNav />
-    </View>
+    </SafeAreaView>
   );
-};
-
-export default AdmittedClubScreen;
+}
 
 const styles = StyleSheet.create({
-  container: {
+  safe: {
     flex: 1,
     backgroundColor: '#FAEBD7',
-    justifyContent: 'space-between',
-    paddingTop: 100,
-    paddingBottom: 200,
   },
   scrollContainer: {
     alignItems: 'center',
-    paddingBottom: 120,
+    paddingVertical: 20,
+    paddingTop: 100, // TopNav와 간격 확보
   },
   button: {
     width: BUTTON_WIDTH,

@@ -1,15 +1,16 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import OnboardingScreen from './components/OnboardingScreen';
 import LoginScreen from './screens/Login/LoginScreen';
-import SignupScreen1 from './screens/Register/SignupScreen';
+import SignupScreen from './screens/Register/SignupScreen.js';
 import SignupScreen2 from './screens/Register/SignupScreen2';
 import SignupScreen3 from './screens/Register/SignupScreen3';
 import SignupScreen4 from './screens/Register/SignupScreen4';
 import SignupScreen5 from './screens/Register/SignupScreen5';
 import SignupScreen6 from './screens/Register/SignupComplete';
+import RoleSelection from './screens/Register/RoleSelection.js';
+import ManagerSignupScreen from './screens/Register/ManagerSignupScreen.js';
 import MainScreen from './screens/MainScreen';
 import ClubScreen from './screens/Club/ClubScreen';
 import MyClubScreen from './screens/Club/MyClubScreen';
@@ -39,6 +40,9 @@ import MedicineNewScreen from './screens/Feature/MedicineNewScreen';
 import AppointmentScreen from './screens/Club/AppointmentScreen';
 import AdminHome from './screens/Admin/AdminHome';
 import SuggestionList from './screens/Admin/SuggestionList';
+import MedicineManageScreen from './screens/Feature/MedicineManage';
+import MedicineAutoScreen from './screens/Feature/MedicineAuto';
+import MedicineManualScreen from './screens/Feature/MedicineManual';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,12 +52,14 @@ export default function App() {
       <Stack.Navigator initialRouteName="Onboarding" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Onboarding" component={OnboardingScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup1" component={SignupScreen1} />
+        <Stack.Screen name="RoleSelection" component={RoleSelection} />
+        <Stack.Screen name="Signup1" component={SignupScreen} />
         <Stack.Screen name="Signup2" component={SignupScreen2} />
         <Stack.Screen name="Signup3" component={SignupScreen3} />
         <Stack.Screen name="Signup4" component={SignupScreen4} />
         <Stack.Screen name="Signup5" component={SignupScreen5} />
         <Stack.Screen name="Signup6" component={SignupScreen6} />
+        <Stack.Screen name="ManagerSignupScreen" component={ManagerSignupScreen} />
         <Stack.Screen name="Main" component={MainScreen} />
         <Stack.Screen name="Club" component={ClubScreen} />
         <Stack.Screen name="MyClub" component={MyClubScreen} />
@@ -84,6 +90,9 @@ export default function App() {
         <Stack.Screen name="AdminHome" component={AdminHome} />
         <Stack.Screen name="SuggestionList" component={SuggestionList} />
         
+        <Stack.Screen name="MedicineManage" component={MedicineManageScreen} />
+        <Stack.Screen name="Auto" component={MedicineAutoScreen} />
+        <Stack.Screen name="Manual" component={MedicineManualScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
