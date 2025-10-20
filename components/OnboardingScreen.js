@@ -14,7 +14,7 @@ export default function OnboardingScreen({ navigation }) {
       <Text style={styles.title}>처음 이 앱을 사용하시나요?</Text>
 
       <View style={styles.buttonGroup}>
-        <TouchableOpacity style={styles.optionBtn} onPress={() => navigation.navigate('Signup1')}>
+        <TouchableOpacity style={styles.optionBtn} onPress={() => navigation.navigate('RoleSelection')}>
           <Text style={styles.optionText}>네</Text>
         </TouchableOpacity>
 
