@@ -37,6 +37,8 @@ import WalkRecordScreen from './screens/Feature/WalkRecordScreen';
 import MedicineScreen from './screens/Feature/MedicineScreen';
 import MedicineNewScreen from './screens/Feature/MedicineNewScreen';
 import AppointmentScreen from './screens/Club/AppointmentScreen';
+import AdminHome from './screens/Admin/AdminHome';
+import SuggestionList from './screens/Admin/SuggestionList';
 
 const Stack = createNativeStackNavigator();
 
@@ -79,6 +81,9 @@ export default function App() {
         <Stack.Screen name="Medicine" component={MedicineScreen} />
         <Stack.Screen name="NewMedicine" component={MedicineNewScreen} />
         <Stack.Screen name="AppointmentScreen" component={AppointmentScreen} />
+        <Stack.Screen name="AdminHome" component={AdminHome} />
+        <Stack.Screen name="SuggestionList" component={SuggestionList} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
