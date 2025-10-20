@@ -9,6 +9,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import colors from '../../styles/colors';
+import g from '../../styles/global';
 
 const HOBBIES = [
   '배드민턴', '탁구', '테니스', '조깅',
