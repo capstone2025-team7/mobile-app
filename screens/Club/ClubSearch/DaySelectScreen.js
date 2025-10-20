@@ -1,3 +1,4 @@
+// DaySelectScreen.js
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -9,7 +10,6 @@ const { width } = Dimensions.get('window');
 const BUTTON_MARGIN = 10;
 const BUTTON_WIDTH = width * 0.7;
 const BUTTON_HEIGHT = 40;
-
 const days = ['월', '화', '수', '목', '금', '토', '일'];
 
 const DaySelectScreen = () => {
@@ -19,14 +19,10 @@ const DaySelectScreen = () => {
   const [selectedDays, setSelectedDays] = useState([]);
 
   const toggleDay = (day) => {
-    if (selectedDays.includes(day)) {
-      setSelectedDays(selectedDays.filter((d) => d !== day));
-    } else {
-      setSelectedDays([...selectedDays, day]);
-    }
+    setSelectedDays(prev => prev.includes(day) ? prev.filter(d => d !== day) : [...prev, day]);
   };
 
-  const findClubs = () => {
+  const handleFind = () => {
     if (selectedDays.length === 0) {
       alert('하나 이상의 요일을 선택해주세요.');
       return;
@@ -39,24 +35,22 @@ const DaySelectScreen = () => {
       <TopNav />
       <Text style={styles.title}>요일을 선택하세요</Text>
       <View style={styles.buttonColumn}>
-        {days.map((day) => {
-          const isSelected = selectedDays.includes(day);
+        {days.map(day => {
+          const selected = selectedDays.includes(day);
           return (
             <TouchableOpacity
               key={day}
-              style={[styles.button, isSelected && styles.selectedButton]}
+              style={[styles.button, selected && styles.selectedButton]}
               onPress={() => toggleDay(day)}
             >
-              <Text style={[styles.buttonText, isSelected && styles.selectedButtonText]}>
-                {day}
-              </Text>
+              <Text style={[styles.buttonText, selected && styles.selectedButtonText]}>{day}</Text>
             </TouchableOpacity>
           );
         })}
       </View>
 
-      <TouchableOpacity style={styles.findButton} onPress={findClubs}>
-        <Text style={styles.findButtonText}>찾기</Text>
+      <TouchableOpacity style={styles.findButton} onPress={handleFind}>
+        <Text style={styles.findButtonText}>검색</Text>
       </TouchableOpacity>
       <FooterNav />
     </View>
@@ -66,54 +60,13 @@ const DaySelectScreen = () => {
 export default DaySelectScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FAEBD7',
-    alignItems: 'center',
-    paddingTop: 80,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '700',
-    marginTop:30,
-    marginBottom: 30,
-    textAlign: 'center',
-  },
-  buttonColumn: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  button: {
-    width: BUTTON_WIDTH,
-    height: BUTTON_HEIGHT,
-    backgroundColor: colors.inputBg,
-    borderRadius: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: BUTTON_MARGIN,
-    elevation: 3,
-  },
-  selectedButton: {
-    backgroundColor: colors.primary,
-  },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: colors.textDark,
-  },
-  selectedButtonText: {
-    color: '#fff',
-  },
-  findButton: {
-    marginTop: 40,
-    backgroundColor: colors.primary,
-    paddingHorizontal: 40,
-    paddingVertical: 12,
-    borderRadius: 16,
-  },
-  findButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '600',
-  },
+  container: { flex: 1, backgroundColor: '#FAEBD7', alignItems: 'center', paddingTop: 80 },
+  title: { fontSize: 20, fontWeight: '700', marginVertical: 30, textAlign: 'center' },
+  buttonColumn: { width: '100%', alignItems: 'center' },
+  button: { width: BUTTON_WIDTH, height: BUTTON_HEIGHT, backgroundColor: colors.inputBg, borderRadius: 16, justifyContent: 'center', alignItems: 'center', marginVertical: BUTTON_MARGIN, elevation: 3 },
+  selectedButton: { backgroundColor: colors.primary },
+  buttonText: { fontSize: 18, fontWeight: '600', color: colors.textDark },
+  selectedButtonText: { color: '#fff' },
+  findButton: { marginTop: 40, backgroundColor: colors.primary, paddingHorizontal: 40, paddingVertical: 12, borderRadius: 16 },
+  findButtonText: { color: '#fff', fontSize: 18, fontWeight: '600' },
 });

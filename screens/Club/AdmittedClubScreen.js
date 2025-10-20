@@ -39,7 +39,7 @@ export default function JoinedClubScreen() {
           <TouchableOpacity
             key={club.id}
             style={styles.button}
-            onPress={() => navigation.navigate('JoinedClubMain', { club })}
+            onPress={() => navigation.navigate('ClubInfo', { club })}
           >
             <Text style={styles.buttonText}>{club.name}</Text>
             <Text style={styles.descText}>{club.description}</Text>
