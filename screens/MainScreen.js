@@ -117,6 +117,16 @@ export default function MainScreen({ navigation, route }) {
               <MaterialIcons name="person-outline" size={18} color="#fff"/>
               <Text style={[g.mainButtonText,{marginLeft:8}]}>마이페이지</Text>
             </TouchableOpacity>
+
+            {/* 임의로 추가한 약속페이지 버튼 */}
+          <TouchableOpacity
+            style={[g.mainButton, styles.appointmentBtn]}
+            onPress={() => navigation.navigate('AppointmentScreen')}
+            activeOpacity={0.9}
+          >
+            <Icon name="calendar-outline" size={18} color="#fff" />
+            <Text style={[g.mainButtonText, { marginLeft: 8 }]}>오늘의 약속 확인</Text>
+          </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -202,6 +212,15 @@ const styles = StyleSheet.create({
     fontWeight:'800', 
     lineHeight:18 
   },
+
+  appointmentBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 14,
+    borderRadius: 14,
+    backgroundColor: 'orange',
+   },
   calendarWeek: { 
     fontSize:12, 
     color:'#6B7280', 

@@ -1,3 +1,4 @@
+// screens/Register/SignupScreen4.js
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -13,10 +14,11 @@ import {
 } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geocoder from 'react-native-geocoding';
-import * as Location from 'expo-location'; // 위치 권한 및 현재 위치
+import * as Location from 'expo-location';
 import colors from '../../styles/colors';
 import g from '../../styles/global';
 
+// ✅ 본인 Google Maps API 키 입력
 Geocoder.init('YOUR_GOOGLE_MAPS_API_KEY', { language: 'ko' });
 
 export default function SignupScreen4({ navigation }) {
@@ -25,36 +27,31 @@ export default function SignupScreen4({ navigation }) {
   const [loadingLocation, setLoadingLocation] = useState(true);
   const [fetchingAddress, setFetchingAddress] = useState(false);
 
-  const isValid = regionText.trim().length > 0;
-
+  // ✅ 다음 페이지 이동 (주소 입력 여부와 상관없이 이동)
   const goNext = () => {
-    if (!isValid) {
-      Alert.alert('주소를 선택해주세요.');
-      return;
-    }
-    navigation.navigate('Signup5', {
-      region: regionText.trim(),
-    });
+    console.log('✅ 이동: SignupScreen5.js로, 전달 region:', regionText);
+    navigation.navigate('Signup5', { region: regionText.trim() });
   };
 
+  // ✅ 좌표 → 주소 변환
   const fetchAddress = async (lat, lng) => {
     try {
       setFetchingAddress(true);
       const json = await Geocoder.from(lat, lng);
       const components = json.results[0]?.address_components;
-
-      if (components) {
+      if (components && components.length > 0) {
         let sido = '';
         let sigungu = '';
         let dong = '';
-
         components.forEach(c => {
           if (c.types.includes('administrative_area_level_1')) sido = c.long_name;
           if (c.types.includes('administrative_area_level_2')) sigungu = c.long_name;
           if (c.types.includes('sublocality_level_1')) dong = c.long_name;
         });
-
-        setRegionText([sido, sigungu, dong].filter(Boolean).join(' '));
+        const fullAddress = [sido, sigungu, dong].filter(Boolean).join(' ');
+        setRegionText(fullAddress || '');
+      } else {
+        setRegionText('');
       }
     } catch (err) {
       console.warn('주소 변환 실패:', err);
@@ -64,12 +61,14 @@ export default function SignupScreen4({ navigation }) {
     }
   };
 
+  // ✅ 마커 바뀌면 주소 자동 갱신
   useEffect(() => {
     if (!loadingLocation) {
       fetchAddress(markerPos.latitude, markerPos.longitude);
     }
   }, [markerPos]);
 
+  // ✅ 앱 시작 시 현재 위치 가져오기
   useEffect(() => {
     (async () => {
       try {
@@ -80,10 +79,7 @@ export default function SignupScreen4({ navigation }) {
           return;
         }
         const loc = await Location.getCurrentPositionAsync({});
-        setMarkerPos({
-          latitude: loc.coords.latitude,
-          longitude: loc.coords.longitude,
-        });
+        setMarkerPos({ latitude: loc.coords.latitude, longitude: loc.coords.longitude });
       } catch (err) {
         console.warn('현재 위치 가져오기 실패:', err);
       } finally {
@@ -92,6 +88,7 @@ export default function SignupScreen4({ navigation }) {
     })();
   }, []);
 
+  // ✅ 로딩 중 표시
   if (loadingLocation) {
     return (
       <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
@@ -100,13 +97,13 @@ export default function SignupScreen4({ navigation }) {
     );
   }
 
+  // ✅ 실제 화면
   return (
     <KeyboardAvoidingView
       style={[styles.container, g?.screen]}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <Image source={require('../../assets/logo.png')} style={styles.logo} />
-
       <Text style={styles.label}>사는 지역을 지도에서 선택하세요</Text>
 
       <MapView
@@ -136,16 +133,15 @@ export default function SignupScreen4({ navigation }) {
       <View style={styles.form}>
         <Text style={styles.label}>선택된 지역</Text>
         <TextInput
-          style={[styles.input, !isValid && regionText.length > 0 && styles.inputError]}
+          style={[styles.input]}
           value={regionText}
           onChangeText={setRegionText}
           placeholder="지역을 선택하면 자동으로 입력됩니다."
           placeholderTextColor={colors?.muted || '#9aa0a6'}
-          returnKeyType="done"
+          editable={false}
         />
-        {fetchingAddress && <ActivityIndicator size="small" color={colors.primary || '#f48d48'} />}
-        {!isValid && regionText.length > 0 && (
-          <Text style={styles.error}>지역을 선택해주세요.</Text>
+        {fetchingAddress && (
+          <ActivityIndicator size="small" color={colors.primary || '#f48d48'} style={{ marginTop: 8 }} />
         )}
       </View>
 
@@ -159,12 +155,8 @@ export default function SignupScreen4({ navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity
-          disabled={!isValid}
           onPress={goNext}
-          style={[
-            styles.navBtn,
-            { backgroundColor: isValid ? colors?.primary || '#f48d48' : colors?.border || '#dcdcdc' },
-          ]}
+          style={[styles.navBtn, { backgroundColor: colors?.primary || '#f48d48' }]}
         >
           <Text style={[styles.navText, { color: '#fff' }]}>다음</Text>
           <Text style={[styles.navIcon, { color: '#fff' }]}>→</Text>
@@ -198,14 +190,14 @@ const styles = StyleSheet.create({
     paddingTop: 28,
   },
   label: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '700',
     color: colors?.textDark || '#222',
     marginTop: 18,
-    marginBottom: 12,
+    marginBottom: 10,
   },
   input: {
-    fontSize: 20,
+    fontSize: 18,
     backgroundColor: colors?.inputBg || '#F2F4F7',
     color: colors?.textDark || '#222',
     borderRadius: 12,
@@ -213,14 +205,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     borderWidth: 1,
     borderColor: colors?.border || '#E5E7EB',
-  },
-  inputError: {
-    borderColor: colors?.danger || '#ff6b6b',
-  },
-  error: {
-    marginTop: 6,
-    fontSize: 14,
-    color: colors?.danger || '#ff6b6b',
   },
   footerNav: {
     flexDirection: 'row',
@@ -245,11 +229,9 @@ const styles = StyleSheet.create({
   navText: {
     fontSize: 20,
     fontWeight: '700',
-    color: colors?.textDark || '#111',
   },
   navIcon: {
     fontSize: 22,
     fontWeight: '800',
-    color: colors?.textDark || '#111',
   },
 });
