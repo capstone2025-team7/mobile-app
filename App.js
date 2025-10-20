@@ -8,7 +8,8 @@ import SignupScreen1 from './screens/Register/SignupScreen';
 import SignupScreen2 from './screens/Register/SignupScreen2';
 import SignupScreen3 from './screens/Register/SignupScreen3';
 import SignupScreen4 from './screens/Register/SignupScreen4';
-import SignupScreen5 from './screens/Register/SignupComplete';
+import SignupScreen5 from './screens/Register/SignupScreen5';
+import SignupScreen6 from './screens/Register/SignupComplete';
 import MainScreen from './screens/MainScreen';
 import ClubScreen from './screens/Club/ClubScreen';
 import MyClubScreen from './screens/Club/MyClubScreen';
@@ -35,6 +36,7 @@ import WalkDetailScreen from './screens/Feature/WalkDetailScreen';
 import WalkRecordScreen from './screens/Feature/WalkRecordScreen';
 import MedicineScreen from './screens/Feature/MedicineScreen';
 import MedicineNewScreen from './screens/Feature/MedicineNewScreen';
+import AppointmentScreen from './screens/Club/AppointmentScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +51,7 @@ export default function App() {
         <Stack.Screen name="Signup3" component={SignupScreen3} />
         <Stack.Screen name="Signup4" component={SignupScreen4} />
         <Stack.Screen name="Signup5" component={SignupScreen5} />
+        <Stack.Screen name="Signup6" component={SignupScreen6} />
         <Stack.Screen name="Main" component={MainScreen} />
         <Stack.Screen name="Club" component={ClubScreen} />
         <Stack.Screen name="MyClub" component={MyClubScreen} />
@@ -75,6 +78,7 @@ export default function App() {
         <Stack.Screen name="WalkRecord" component={WalkRecordScreen} />
         <Stack.Screen name="Medicine" component={MedicineScreen} />
         <Stack.Screen name="NewMedicine" component={MedicineNewScreen} />
+        <Stack.Screen name="AppointmentScreen" component={AppointmentScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
