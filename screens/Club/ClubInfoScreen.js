@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import colors from '../../styles/colors';
 import TopNav from '../../components/TopNav';
 import FooterNav from '../../components/FooterNav';
@@ -7,7 +7,6 @@ import FooterNav from '../../components/FooterNav';
 const ClubInfoScreen = ({ route }) => {
   const { club } = route.params;
 
-  // 신청 로직 추가
   const handleApply = (choice) => {
     if (choice === 'yes') {
       alert('신청 완료!');
@@ -20,13 +19,18 @@ const ClubInfoScreen = ({ route }) => {
     <View style={styles.container}>
       <TopNav />
 
-      <View style={styles.content}>
+      {/* ScrollView로 감싸서 스크롤 및 여백 확보 */}
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.card}>
           <Text style={styles.clubName}>{club.name}</Text>
           <Text style={styles.clubDesc}>{club.description}</Text>
         </View>
 
         <Text style={styles.applyText}>신청하시겠습니까?</Text>
+
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={[styles.applyButton, { backgroundColor: '#F8CFE0' }]}
@@ -41,7 +45,7 @@ const ClubInfoScreen = ({ route }) => {
             <Text style={styles.applyButtonText}>아니요</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
 
       <FooterNav />
     </View>
@@ -55,13 +59,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FAEBD7',
     justifyContent: 'space-between',
-    paddingTop: 100,
-    paddingBottom: 200,
   },
-  content: {
-    flex: 1,
+  scrollContainer: {
     alignItems: 'center',
     paddingHorizontal: 20,
+    paddingTop: 100, // 🔹 TopNav와의 간격 확보
+    paddingBottom: 200, // 🔹 FooterNav와 겹치지 않게 여백 확보
   },
   card: {
     width: '100%',
@@ -72,14 +75,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 30,
     minHeight: 450,
-    marginTop: 30,
-  },
-  clubImage: {
-    width: 80,
-    height: 80,
-    backgroundColor: 'black', // 임시 placeholder 색상
-    borderRadius: 8,
-    marginBottom: 12,
   },
   clubName: {
     fontSize: 18,
@@ -96,6 +91,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     marginBottom: 12,
+    color: colors.textDark,
   },
   buttonContainer: {
     flexDirection: 'row',

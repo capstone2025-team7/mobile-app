@@ -19,7 +19,6 @@ export default function WalkRecordScreen({ navigation }) {
     totalTime: '2:34:20',
   }), []);
 
-  // 요일별 운동 시간 (단위: 분)
   const chartData = useMemo(() => ([
     { day: '월', mins: 20 },
     { day: '화', mins: 0 },
@@ -30,20 +29,30 @@ export default function WalkRecordScreen({ navigation }) {
     { day: '일', mins: 0 },
   ]), []);
 
-  // 최근 활동 (거리, 시간만 표시)
   const recent = useMemo(() => ([
     { id: '1', title: '2025.08.26', km: 3.2, time: '32:10' },
     { id: '2', title: '2025.08.23', km: 2.1, time: '19:45' },
   ]), []);
 
   const ORANGE = colors?.primary || colors?.orange || '#FF7A00';
-  const IVORY = colors?.ivory || colors?.background || '#F8F5E6';
+  const TOPNAV_HEIGHT = 150;
+  const FOOTERNAV_HEIGHT = 80;
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: '#FAEBD7' }]}>
-      <ScrollView contentContainerStyle={styles.container}>
-        
+      
+      {/* TopNav */}
       <TopNav />
+
+      <ScrollView
+        contentContainerStyle={{
+          paddingTop: TOPNAV_HEIGHT - 80,
+          paddingBottom: FOOTERNAV_HEIGHT + 25,
+          width: '100%',
+        }}
+        showsVerticalScrollIndicator={false}
+      >
+
         {/* 월 선택 */}
         <View style={styles.monthRow}>
           <Text style={styles.monthText}>{monthLabel}</Text>
@@ -67,6 +76,7 @@ export default function WalkRecordScreen({ navigation }) {
 
         {/* 최근 활동 */}
         <Text style={styles.sectionTitle}>최근 활동</Text>
+
         <View style={{ gap: 16 }}>
           {recent.map(item => (
             <Pressable
@@ -77,7 +87,7 @@ export default function WalkRecordScreen({ navigation }) {
             >
               {/* 날짜 */}
               <Text style={styles.activityTitle}>
-                <Icon name="calendar-outline" size={18} color="#FF7A00" /> {'  '}
+                <Icon name="calendar-outline" size={18} color="#FF7A00" />{' '}
                 {item.title}
               </Text>
 
@@ -100,8 +110,12 @@ export default function WalkRecordScreen({ navigation }) {
         </View>
 
         <View style={{ height: 24 }} />
-      <FooterNav />
+
       </ScrollView>
+
+      {/* FooterNav */}
+      <FooterNav />
+
     </SafeAreaView>
   );
 }
@@ -110,8 +124,10 @@ function TimeBarChart({ data, accent }) {
   if (!data?.length) return null;
 
   const maxMin = Math.max(...data.map(d => d.mins), 1);
+
   return (
     <View style={styles.chartWrap}>
+      
       <View style={styles.chartAxis}>
         <Text style={styles.axisTick}>0</Text>
         <Text style={styles.axisTick}>{Math.ceil(maxMin / 2)}분</Text>
@@ -129,17 +145,13 @@ function TimeBarChart({ data, accent }) {
           );
         })}
       </View>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   safe: { flex: 1 },
-  container: {
-    paddingTop: 8,
-    paddingHorizontal: 16,
-    paddingBottom: 12,
-  },
 
   monthRow: {
     flexDirection: 'row',
@@ -163,6 +175,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0,0,0,0.04)',
     marginBottom: 16,
   },
+
   kmRow: {
     flexDirection: 'row',
     alignItems: 'flex-end',
@@ -175,11 +188,8 @@ const styles = StyleSheet.create({
     lineHeight: 60,
     marginRight: 8,
   },
-  kmUnit: {
-    fontSize: 16,
-    color: '#555',
-    marginBottom: 6,
-  },
+  kmUnit: { fontSize: 16, color: '#555', marginBottom: 6 },
+
   timeRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -189,49 +199,16 @@ const styles = StyleSheet.create({
   metricLabel: { fontSize: 16, color: '#6B7280' },
   metricValue: { fontSize: 20, fontWeight: '700', color: '#111' },
 
-  chartWrap: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    height: 140,
-  },
-  chartAxis: {
-    width: 44,
-    justifyContent: 'space-between',
-    height: '100%',
-    paddingVertical: 2,
-  },
+  chartWrap: { flexDirection: 'row', alignItems: 'flex-end', height: 140 },
+  chartAxis: { width: 44, justifyContent: 'space-between', height: '100%', paddingVertical: 2 },
   axisTick: { fontSize: 11, color: '#6B7280' },
-  chartBars: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    gap: 12,
-    paddingHorizontal: 8,
-    paddingBottom: 2,
-  },
-  barCol: {
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    flex: 1,
-  },
-  bar: {
-    width: '60%',
-    borderTopLeftRadius: 6,
-    borderTopRightRadius: 6,
-  },
-  barLabel: {
-    marginTop: 6,
-    fontSize: 12,
-    color: '#444',
-  },
+  chartBars: { flex: 1, flexDirection: 'row', alignItems: 'flex-end', gap: 12, paddingHorizontal: 8, paddingBottom: 2 },
+  barCol: { alignItems: 'center', justifyContent: 'flex-end', flex: 1 },
+  bar: { width: '60%', borderTopLeftRadius: 6, borderTopRightRadius: 6 },
+  barLabel: { marginTop: 6, fontSize: 12, color: '#444' },
 
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: '#111',
-    marginBottom: 10,
-    marginTop: 6,
-  },
+  sectionTitle: { fontSize: 18, fontWeight: '800', color: '#111', marginBottom: 10, marginTop: 6 },
+
   activityCard: {
     backgroundColor: '#fff',
     borderRadius: 16,
@@ -245,31 +222,10 @@ const styles = StyleSheet.create({
     elevation: 2,
     gap: 12,
   },
-  activityTitle: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: '#FF7A00',
-    marginBottom: 6,
-  },
-  activityMetaRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginTop: 4,
-  },
-  metaBlock: {
-    alignItems: 'center',
-    flex: 1,
-    gap: 2,
-  },
-  metaValue: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: '#111',
-    marginTop: 2,
-  },
-  metaLabel: {
-    fontSize: 13,
-    color: '#6B7280',
-  },
+
+  activityTitle: { fontSize: 18, fontWeight: '800', color: '#FF7A00', marginBottom: 6 },
+  activityMetaRow: { flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginTop: 4 },
+  metaBlock: { alignItems: 'center', flex: 1, gap: 2 },
+  metaValue: { fontSize: 18, fontWeight: '800', color: '#111', marginTop: 2 },
+  metaLabel: { fontSize: 13, color: '#6B7280' },
 });

@@ -4,12 +4,25 @@ import colors from '../../styles/colors';
 import TopNav from '../../components/TopNav';
 import FooterNav from '../../components/FooterNav';
 
-const BulletinDetailScreen = ({ route }) => {
-  const { title, startTime, endTime, location } = route.params || {}; // location 추가
+// 더미 데이터
+const dummyBulletin = {
+  title: '이번 주 동아리 모임 참여 여부',
+  startTime: new Date().getTime() - 1000 * 60 * 60, // 1시간 전
+  endTime: new Date().getTime() + 1000 * 60 * 60 * 24, // 24시간 후
+  location: {
+    building: 'A체육관',
+    address: '서울시 강남구 대학로 123',
+    price: '무료',
+  },
+};
+
+const BulletinDetailScreen = () => {
+  const { title, startTime, endTime, location } = dummyBulletin;
 
   const [start] = useState(new Date(startTime));
   const [end] = useState(new Date(endTime));
   const [userVoted, setUserVoted] = useState(false);
+  const [userVotedOptionId, setUserVotedOptionId] = useState(null);
   const [isEnded, setIsEnded] = useState(false);
   const [notStarted, setNotStarted] = useState(false);
   const [options, setOptions] = useState([
@@ -31,10 +44,24 @@ const BulletinDetailScreen = ({ route }) => {
   const handleVote = (optionId) => {
     if (userVoted || isEnded || notStarted) return;
 
-    setOptions((prev) =>
-      prev.map((opt) => (opt.id === optionId ? { ...opt, votes: opt.votes + 1 } : opt))
+    setOptions(prev =>
+      prev.map(opt => (opt.id === optionId ? { ...opt, votes: opt.votes + 1 } : opt))
     );
     setUserVoted(true);
+    setUserVotedOptionId(optionId);
+  };
+
+  const handleRevote = () => {
+    if (!userVotedOptionId) return;
+
+    // 이전 투표 취소
+    setOptions(prev =>
+      prev.map(opt =>
+        opt.id === userVotedOptionId ? { ...opt, votes: Math.max(opt.votes - 1, 0) } : opt
+      )
+    );
+    setUserVoted(false);
+    setUserVotedOptionId(null);
   };
 
   return (
@@ -43,12 +70,22 @@ const BulletinDetailScreen = ({ route }) => {
 
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>{title}</Text>
-        
-        {/* 장소 정보 */}
+
+        {/* 장소 정보 카드 */}
         {location && (
-          <Text style={styles.locationText}>장소: {location}</Text>
+          <View style={styles.locationCard}>
+            <Text style={styles.locationLabel}>건물:</Text>
+            <Text style={styles.locationText}>{location.building}</Text>
+
+            <Text style={styles.locationLabel}>위치:</Text>
+            <Text style={styles.locationText}>{location.address}</Text>
+
+            <Text style={styles.locationLabel}>가격:</Text>
+            <Text style={styles.locationText}>{location.price}</Text>
+          </View>
         )}
 
+        {/* 투표 카드 */}
         <View style={styles.detailCard}>
           <Text style={styles.description}>이번 주 동아리 모임 참여 여부 투표입니다.</Text>
           <Text style={styles.endTime}>투표 시작: {start.toLocaleString()}</Text>
@@ -84,6 +121,13 @@ const BulletinDetailScreen = ({ route }) => {
             })}
           </View>
 
+          {/* 재투표 버튼 */}
+          {userVoted && !isEnded && !notStarted && (
+            <TouchableOpacity style={styles.revoteButton} onPress={handleRevote}>
+              <Text style={styles.revoteText}>재투표</Text>
+            </TouchableOpacity>
+          )}
+
           {notStarted && <Text style={styles.resultText}>투표가 아직 시작되지 않았습니다.</Text>}
           {isEnded && <Text style={styles.resultText}>투표가 종료되었습니다. 최종 결과를 확인하세요!</Text>}
         </View>
@@ -116,6 +160,29 @@ const styles = StyleSheet.create({
     color: colors.textDark, 
     marginBottom: 12, 
     alignSelf: 'center' 
+  },
+  locationCard: {
+    width: '100%',
+    backgroundColor: colors.white,
+    padding: 15,
+    borderRadius: 12,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  locationLabel: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.textDark,
+    marginTop: 4,
+  },
+  locationText: {
+    fontSize: 16,
+    color: colors.textDark,
+    marginBottom: 6,
   },
   detailCard: { 
     width: '100%', 
@@ -169,17 +236,23 @@ const styles = StyleSheet.create({
     marginTop: 6, 
     color: colors.textDark 
   },
+  revoteButton: {
+    marginTop: 16,
+    backgroundColor: colors.primary,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  revoteText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
   resultText: { 
     marginTop: 16, 
     fontSize: 16, 
     fontWeight: '600', 
     color: 'red', 
     textAlign: 'center' 
-  },
-  locationText: {
-    fontSize: 16,
-    color: colors.textDark,
-    marginBottom: 12,
-    alignSelf: 'center',
   },
 });

@@ -15,21 +15,24 @@ import TopNav from '../../components/TopNav';
 import FooterNav from '../../components/FooterNav';
 
 export default function MedicineNewScreen({ navigation, route }) {
-  const ORANGE = colors?.primary || colors?.orange || '#FF7A00';
-  const IVORY  = colors?.ivory || colors?.background || '#F8F5E6';
+  const ORANGE = colors?.primary || colors?.orange || '#FFB100';
+  const IVORY  = colors?.ivory || colors?.background || '#FAEBD7';
 
   const onPressManual = () => {
     Vibration?.vibrate?.(10);
     Alert.alert('직접 등록', '약 이름/용량/복용시간을 직접 입력하는 화면으로 연결할 수 있어요.');
-  };  
+    navigation.navigate('Manual');
+  };
 
   const onPressCamera = () => {
     Vibration?.vibrate?.(10);
     Alert.alert('카메라', '카메라로 약을 촬영해 정보를 등록하는 화면으로 연결할 수 있어요.');
+    navigation.navigate('Auto');
   };
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: '#FAEBD7' }]}>
+      <TopNav />
       <View style={styles.container}>
         <View style={styles.grid}>
           {/* 상단 버튼: 직접 등록 */}
@@ -63,6 +66,7 @@ export default function MedicineNewScreen({ navigation, route }) {
           </TouchableOpacity>
         </View>
       </View>
+      <FooterNav />
     </SafeAreaView>
   );
 }

@@ -8,7 +8,6 @@ import {
   Alert,
   ScrollView,
   SafeAreaView,
-  StatusBar
 } from 'react-native';
 import TopNav from '../components/TopNav';
 import FooterNav from '../components/FooterNav';
@@ -29,56 +28,7 @@ export default function EditProfileScreen() {
 
   return (
     <SafeAreaView contentContainerStyle={styles.scrollContainer}>
-      <View style={styles.container}>
-        <Text style={styles.title}>👤 프로필 수정 👤</Text>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>이름</Text>
-          <TextInput
-            style={styles.input}
-            value={name}
-            onChangeText={setName}
-            placeholder="이름을 입력하세요"
-          />
-        </View>
-        
-        <View style={styles.field}>
-          <Text style={styles.label}>비밀번호</Text>
-          <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={setPassword}
-            placeholder="비밀번호를 입력하세요"
-            secureTextEntry
-          />
-        </View>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>거주지역</Text>
-          <TextInput
-            style={styles.input}
-            value={region}
-            onChangeText={setRegion}
-            placeholder="거주지역을 입력하세요"
-          />
-        </View>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>전화번호</Text>
-          <TextInput
-            style={styles.input}
-            value={phone}
-            onChangeText={setPhone}
-            placeholder="전화번호를 입력하세요"
-            keyboardType="phone-pad"
-          />
-        </View>
-
-        <TouchableOpacity style={styles.button} onPress={handleSave}>
-          <Text style={styles.buttonText}> 저장하기 </Text>
-        </TouchableOpacity>
-      </View>
-
+      <TopNav />
       {/* 스크롤 되는 영역 */ }
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.container}>
@@ -91,17 +41,6 @@ export default function EditProfileScreen() {
               value={name}
               onChangeText={setName}
               placeholder="이름을 입력하세요"
-            />
-          </View>
-
-          <View style={styles.field}>
-            <Text style={styles.label}>아이디</Text>
-            <TextInput
-              style={styles.input}
-              value={userId}
-              onChangeText={setUserId}
-              placeholder="아이디를 입력하세요"
-              autoCapitalize="none"
             />
           </View>
 
@@ -142,7 +81,6 @@ export default function EditProfileScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
       <FooterNav />
     </SafeAreaView >
   );
@@ -158,6 +96,7 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 24,
+    backgroundColor: '#FAEBD7',
   },
   title: {
     fontSize: 28,

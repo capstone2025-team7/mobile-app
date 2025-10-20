@@ -35,6 +35,9 @@ import WalkDetailScreen from './screens/Feature/WalkDetailScreen';
 import WalkRecordScreen from './screens/Feature/WalkRecordScreen';
 import MedicineScreen from './screens/Feature/MedicineScreen';
 import MedicineNewScreen from './screens/Feature/MedicineNewScreen';
+import MedicineManageScreen from './screens/Feature/MedicineManage';
+import MedicineAutoScreen from './screens/Feature/MedicineAuto';
+import MedicineManualScreen from './screens/Feature/MedicineManual';
 
 const Stack = createNativeStackNavigator();
 
@@ -75,6 +78,9 @@ export default function App() {
         <Stack.Screen name="WalkRecord" component={WalkRecordScreen} />
         <Stack.Screen name="Medicine" component={MedicineScreen} />
         <Stack.Screen name="NewMedicine" component={MedicineNewScreen} />
+        <Stack.Screen name="MedicineManage" component={MedicineManageScreen} />
+        <Stack.Screen name="Auto" component={MedicineAutoScreen} />
+        <Stack.Screen name="Manual" component={MedicineManualScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

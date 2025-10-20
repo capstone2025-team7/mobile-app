@@ -15,7 +15,6 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geocoder from 'react-native-geocoding';
 import * as Location from 'expo-location'; // 위치 권한 및 현재 위치
 import colors from '../../styles/colors';
-import g from '../../styles/global';
 
 Geocoder.init('YOUR_GOOGLE_MAPS_API_KEY', { language: 'ko' });
 

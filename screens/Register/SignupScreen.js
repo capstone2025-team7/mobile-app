@@ -11,7 +11,6 @@ import {
   Keyboard,
 } from 'react-native';
 import colors from '../../styles/colors';
-import g from '../../styles/global';
 
 export default function SignupScreen({ navigation }) {
   // 신규 추가: 아이디/비밀번호

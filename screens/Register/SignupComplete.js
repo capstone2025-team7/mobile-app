@@ -2,7 +2,6 @@
 import React from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import colors from '../../styles/colors'
-import g from '../../styles/global'
 
 export default function SignupComplete({ navigation }) {
   return (
