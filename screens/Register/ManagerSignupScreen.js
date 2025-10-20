@@ -98,7 +98,7 @@ export default function ManagerSignupScreen({ navigation }) {
   const goNext = () => {
     if (!canNext) return;
     // 매니저 전용 다음 단계로 이동합니다.
-    navigation.navigate('ManagerSignup2', {
+    navigation.navigate('Signup5', {
       accountId: accountId.trim(),
       password,
       name: name.trim(),

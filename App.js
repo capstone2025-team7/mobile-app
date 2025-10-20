@@ -36,6 +36,7 @@ import WalkDetailScreen from './screens/Feature/WalkDetailScreen';
 import WalkRecordScreen from './screens/Feature/WalkRecordScreen';
 import MedicineScreen from './screens/Feature/MedicineScreen';
 import MedicineNewScreen from './screens/Feature/MedicineNewScreen';
+import SignupComplete from './screens/Register/SignupComplete';
 
 
 const Stack = createNativeStackNavigator();
