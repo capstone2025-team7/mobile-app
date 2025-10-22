@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../styles/colors';
 import TopNav from '../../components/TopNav';
@@ -15,10 +15,12 @@ const JoinedClubMainScreen = ({ route }) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.safe}>
+      {/* 상단 고정 네비게이션 */}
       <TopNav />
 
-      <View style={styles.buttonColumn}>
+      {/* 스크롤 가능한 버튼 컬럼 */}
+      <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator>
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('BulletinBoard', { club })}
@@ -39,30 +41,28 @@ const JoinedClubMainScreen = ({ route }) => {
         >
           <Text style={styles.buttonText}>동호회 멤버</Text>
         </TouchableOpacity>
-      </View>
 
+        {/* 하단 여백 확보 */}
+        <View style={{ height: 80 }} />
+      </ScrollView>
+
+      {/* 하단 고정 네비게이션 */}
       <FooterNav />
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default JoinedClubMainScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  safe: {
     flex: 1,
-    paddingBottom: 80,
-    alignItems: 'center',
-    justifyContent: 'space-between',
     backgroundColor: '#FAEBD7',
-    paddingTop: 100,
-    paddingBottom: 200,
   },
-  buttonColumn: {
-    flexDirection: 'column',
-    justifyContent: 'center',
+  scrollContainer: {
     alignItems: 'center',
-    width: '100%',
+    paddingVertical: 20,
+    paddingTop: 100, // TopNav와 간격 확보
   },
   button: {
     width: BUTTON_WIDTH,

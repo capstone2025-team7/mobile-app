@@ -1,15 +1,21 @@
-// screens/WalkDetailScreen.js
+// WalkDetailScreen.js
 import React, { useMemo } from 'react';
-import { SafeAreaView, View, Text, StyleSheet } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import colors from '../../styles/colors';
+import TopNav from '../../components/TopNav';
+import FooterNav from '../../components/FooterNav';
 
 export default function WalkDetailScreen({ route }) {
-  const { activity } = route.params || {};
-  const ORANGE = colors?.primary || colors?.orange || '#FF7A00';
-  const IVORY  = colors?.ivory || colors?.background || '#F8F5E6';
+  // 더미 데이터
+  const activity = route.params?.activity ?? {
+    title: '산책 기록',
+    desc: '오늘은 3.4km를 걸었어요!',
+    km: 3.4,
+    pace: '7:30/km',
+    time: '25분 40초',
+  };
 
-  //격려 메시지 배열 (프론트엔드 랜덤)
   const messages = [
     '오늘도 저속노화 성공🙌',
     '대단하십니다! 응원합니다 💪🔥',
@@ -20,61 +26,67 @@ export default function WalkDetailScreen({ route }) {
     '이 기세로 목표까지 화이팅 🏃‍♀️',
     '매일매일 꾸준히! 계속 화이팅 🔥',
   ];
+
   const randomMessage = useMemo(() => {
     const idx = Math.floor(Math.random() * messages.length);
     return messages[idx];
   }, []);
 
-  if (!activity) {
-    return (
-      <SafeAreaView style={[styles.safe, { backgroundColor: '#FAEBD7' }]}>
-        <View style={styles.container}>
-          <Text style={styles.errorText}>활동 데이터가 없습니다.</Text>
-        </View>
-      </SafeAreaView>
-    );
-  }
+  const TOPNAV_HEIGHT = 150;
+  const FOOTERNAV_HEIGHT = 80;
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: IVORY }]}>
-      <View style={styles.container}>
-        {/* 제목 */}
-        <Text style={styles.title}>{activity.title}</Text>
-        <Text style={styles.desc}>{activity.desc}</Text>
+    <SafeAreaView style={styles.safe}>
+      {/* TopNav */}
+      <TopNav />
 
-        {/* 🔹 히어로 숫자(거리) */}
-        <View style={styles.heroWrap} accessible accessibilityLabel={`거리 ${activity.km}킬로미터`}>
-          <Text style={styles.heroNumber}>{activity.km}</Text>
-          <Text style={styles.heroUnit}>km</Text>
-          <Text style={styles.heroCaption}>총 거리</Text>
-        </View>
+      {/* Scrollable Content */}
+      <ScrollView
+        contentContainerStyle={{
+          paddingTop: TOPNAV_HEIGHT,
+          paddingBottom: FOOTERNAV_HEIGHT + 30,
+          alignItems: 'center',
+          width: '100%',
+        }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.container}>
+          <Text style={styles.title}>{activity.title}</Text>
+          <Text style={styles.desc}>{activity.desc}</Text>
 
-        {/* 🔹 통계 칩(평균 페이스 / 시간) */}
-        <View style={styles.pillsRow}>
-          <StatPill
-            icon="speedometer-outline"
-            color={ORANGE}
-            label="평균 페이스"
-            value={activity.pace}
-          />
-          <StatPill
-            icon="time-outline"
-            color={ORANGE}
-            label="시간"
-            value={activity.time}
-          />
-        </View>
+          <View style={styles.heroWrap}>
+            <Text style={styles.heroNumber}>{activity.km}</Text>
+            <Text style={styles.heroUnit}>km</Text>
+            <Text style={styles.heroCaption}>총 거리</Text>
+          </View>
 
-        {/* 격려 메시지 */}
-        <View style={styles.messageBox}>
-          <Text style={styles.messageText}>{randomMessage}</Text>
+          <View style={styles.pillsRow}>
+            <StatPill
+              icon="speedometer-outline"
+              color={colors.primary}
+              label="평균 페이스"
+              value={activity.pace}
+            />
+            <StatPill
+              icon="time-outline"
+              color={colors.primary}
+              label="시간"
+              value={activity.time}
+            />
+          </View>
+
+          <View style={styles.messageBox}>
+            <Text style={styles.messageText}>{randomMessage}</Text>
+          </View>
         </View>
-      </View>
+      </ScrollView>
+
+      {/* FooterNav */}
+      <FooterNav />
     </SafeAreaView>
   );
 }
 
-/* -------- Sub Components -------- */
 function StatPill({ icon, color, label, value }) {
   return (
     <View style={styles.pill}>
@@ -89,34 +101,21 @@ function StatPill({ icon, color, label, value }) {
   );
 }
 
-/* -------- Styles -------- */
 const styles = StyleSheet.create({
-  safe: { flex: 1 },
+  safe: { flex: 1, backgroundColor: '#FAEBD7' },
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 120, // 기존 200 → 상단 여백 조금 줄여서 밸런스
+    width: '100%',
     paddingHorizontal: 20,
   },
-  errorText: { fontSize: 16, color: '#666' },
-
   title: { fontSize: 36, fontWeight: '800', color: '#111', marginBottom: 6, textAlign: 'center' },
   desc: { fontSize: 26, color: '#555', marginBottom: 24, textAlign: 'center' },
-
-  /* 히어로 숫자 */
   heroWrap: { alignItems: 'center', marginBottom: 16 },
   heroNumber: { fontSize: 84, fontWeight: '900', color: '#111', lineHeight: 72 },
   heroUnit: { fontSize: 30, color: '#6B7280', marginTop: -6 },
   heroCaption: { fontSize: 23, color: '#9CA3AF', marginTop: 6 },
-
-  /* 통계 pill */
-  pillsRow: {
-    flexDirection: 'row',
-    gap: 12,
-    width: '100%',
-    marginTop: 8,
-    marginBottom: 16,
-  },
+  pillsRow: { flexDirection: 'row', gap: 12, width: '100%', marginTop: 8, marginBottom: 16 },
   pill: {
     flex: 1,
     flexDirection: 'row',
@@ -140,12 +139,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,149,0,0.12)', // 오렌지 라이트
+    backgroundColor: 'rgba(255,149,0,0.12)',
   },
-  pillValue: { fontSize: 26, fontWeight: '900', color: '#111' }, // 큼직하게
+  pillValue: { fontSize: 26, fontWeight: '900', color: '#111' },
   pillLabel: { fontSize: 20, color: '#6B7280', marginTop: 2 },
-
-  /* 격려 메시지 */
   messageBox: {
     marginTop: 12,
     padding: 16,

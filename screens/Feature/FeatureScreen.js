@@ -20,7 +20,7 @@ const FeatureScreen = ({ navigation }) => {
 
   const onPressWalk = () => {
     Vibration?.vibrate?.(10);
-    navigation.navigate('Walk'); 
+    navigation.navigate('Walk');
   };
 
   const onPressMedicine = () => {
@@ -31,9 +31,7 @@ const FeatureScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={[styles.safeArea, { backgroundColor: '#FAEBD7' }]}>
       {/* 상단 FooterNav → 약간 아래로 */}
-      <View style={styles.topNavWrapper}>
-        <TopNav />
-      </View>
+      <TopNav />
 
       <View style={styles.container}>
         <View style={styles.grid}>
@@ -65,9 +63,7 @@ const FeatureScreen = ({ navigation }) => {
         </View>
       </View>
 
-      <View style={styles.bottomNavWrapper}>
-        <FooterNav />
-      </View>
+      <FooterNav />
     </SafeAreaView>
   );
 };
@@ -76,14 +72,6 @@ export default FeatureScreen;
 
 const styles = StyleSheet.create({
   safeArea: { flex: 1 },
-
-  topNavWrapper: {
-    marginTop: 100,
-  },
-
-  bottomNavWrapper: {
-    marginBottom: 100,
-  },
 
   container: {
     flex: 1,

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+
 import {
   View,
   Text,
@@ -97,6 +98,7 @@ export default function SignupScreen4({ navigation }) {
     navigation.navigate('Signup5', { region: regionText.trim() });
   };
 
+  // ✅ 좌표 → 주소 변환
   const fetchAddress = async (lat, lng) => {
     try {
       setFetchingAddress(true);
@@ -317,14 +319,14 @@ const styles = StyleSheet.create({
     paddingTop: 28,
   },
   label: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '700',
     color: colors?.dtextDark || '#222',
     marginTop: 18,
-    marginBottom: 12,
+    marginBottom: 10,
   },
   input: {
-    fontSize: 20,
+    fontSize: 18,
     backgroundColor: colors?.inputBg || '#F2F4F7',
     color: colors?.textDark || '#222',
     borderRadius: 12,
@@ -332,14 +334,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     borderWidth: 1,
     borderColor: colors?.border || '#E5E7EB',
-  },
-  inputError: {
-    borderColor: colors?.danger || '#ff6b6b',
-  },
-  error: {
-    marginTop: 6,
-    fontSize: 14,
-    color: colors?.danger || '#ff6b6b',
   },
   footerNav: {
     flexDirection: 'row',
@@ -364,11 +358,9 @@ const styles = StyleSheet.create({
   navText: {
     fontSize: 20,
     fontWeight: '700',
-    color: colors?.textDark || '#111',
   },
   navIcon: {
     fontSize: 22,
     fontWeight: '800',
-    color: colors?.textDark || '#111',
   },
 });

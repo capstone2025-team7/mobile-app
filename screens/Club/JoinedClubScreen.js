@@ -31,8 +31,8 @@ const JoinedClubScreen = () => {
 
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={true} // 세로 스크롤바 표시
-        indicatorStyle="black"             // iOS에서 스크롤바 색상 설정
+        showsVerticalScrollIndicator={true}
+        indicatorStyle="black"
       >
         {clubs.map((club) => (
           <TouchableOpacity
@@ -57,13 +57,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FAEBD7',
-    justifyContent: 'space-between',
-    paddingTop: 100,
-    paddingBottom: 200,
   },
   scrollContainer: {
     alignItems: 'center',
-    paddingBottom: 120,
+    paddingTop: 120, // 🔹 TopNav와의 간격 확보
+    paddingBottom: 200, // 🔹 FooterNav와 겹치지 않게 여백 확보
   },
   button: {
     width: BUTTON_WIDTH,
